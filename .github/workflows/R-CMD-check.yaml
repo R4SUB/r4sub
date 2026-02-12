@@ -35,16 +35,9 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: any::rcmdcheck, any::remotes
+          extra-packages: any::rcmdcheck, R4SUB/r4subcore, R4SUB/r4subtrace, R4SUB/r4subscore, R4SUB/r4subrisk, R4SUB/r4subdata, R4SUB/r4subprofile, R4SUB/r4subui
           needs: check
-
-      - name: Install R4SUB dependencies
-        run: |
-          remotes::install_github(c("R4SUB/r4subcore", "R4SUB/r4subtrace", "R4SUB/r4subscore", "R4SUB/r4subrisk", "R4SUB/r4subdata", "R4SUB/r4subprofile"))
-        shell: Rscript {0}
 
       - uses: r-lib/actions/check-r-package@v2
         with:
           upload-snapshots: true
-          build_args: '"--no-manual"'
-          args: '"--no-manual", "--as-cran"'
