@@ -37,6 +37,7 @@ jobs:
         with:
           extra-packages: any::rcmdcheck, R4SUB/r4subcore, R4SUB/r4subtrace, R4SUB/r4subscore, R4SUB/r4subrisk, R4SUB/r4subdata, R4SUB/r4subprofile, R4SUB/r4subui
           needs: check
+          install-pandoc: 'false'
 
       - uses: r-lib/actions/check-r-package@v2
         with:
