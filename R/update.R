@@ -4,12 +4,13 @@
 #' highlights any packages that are not installed.
 #'
 #' @return A tibble with columns: `package`, `installed`. Returned invisibly.
+#'   Called for its side effect of printing installation status to the console.
 #'
 #' @examples
-#' r4sub_update()
+#' r4sub_status()
 #'
 #' @export
-r4sub_update <- function() {
+r4sub_status <- function() {
   pkgs <- c("r4sub", core_packages(), "r4subui")
 
   installed <- vapply(pkgs, function(p) {

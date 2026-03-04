@@ -2,7 +2,7 @@
 "_PACKAGE"
 
 ## usethis namespace: start
-#' @importFrom cli cli_alert_info cli_alert_success cli_alert_warning
+#' @importFrom cli cli_alert_info cli_alert_success cli_alert_warning cli_h2
 #' @importFrom r4subcore validate_evidence
 #' @importFrom r4subdata list_datasets
 #' @importFrom r4subprofile submission_profile
@@ -11,6 +11,6 @@
 #' @importFrom r4subtrace trace_config_default
 #' @importFrom rlang .data
 #' @importFrom tibble tibble as_tibble
-#' @importFrom utils packageVersion
+#' @importFrom utils citation news packageVersion
 ## usethis namespace: end
 NULL

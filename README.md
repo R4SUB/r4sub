@@ -1,13 +1,13 @@
 # r4sub
 
-**r4sub** is the meta-package for the R4SUB clinical submission readiness ecosystem.
+**r4sub** is the meta-package for the R4SUB (R for Regulatory Submission) clinical submission readiness ecosystem.
 
 A single `library(r4sub)` call installs and attaches all core packages.
 
 ## Installation
 
 ```r
-pak::pak("R4SUB/r4sub")
+install.packages("r4sub")
 ```
 
 ## Usage
@@ -15,22 +15,31 @@ pak::pak("R4SUB/r4sub")
 ```r
 library(r4sub)
 # -- Attaching R4SUB packages (r4sub 0.1.0) -----
-#   r4subcore     0.1.0
-#   r4subtrace    0.1.0
-#   r4subscore    0.1.0
-#   r4subrisk     0.1.0
-#   r4subdata     0.1.0
-#   r4subprofile  0.1.0
+#   r4subcore    0.1.1
+#   r4subtrace   0.1.0
+#   r4subscore   0.1.0
+#   r4subrisk    0.1.0
+#   r4subdata    0.1.1
+#   r4subprofile 0.1.0
 
-# All functions are now available
-data(evidence_pharma)
-scores <- compute_indicator_scores(evidence_pharma)
-sci <- compute_sci(compute_pillar_scores(evidence_pharma))
+# All ecosystem functions are now available
+data(evidence_pharma)                                    # from r4subdata
+scores <- compute_indicator_scores(evidence_pharma)      # from r4subscore
+sci    <- compute_sci(compute_pillar_scores(scores))     # from r4subscore
 
-# Check ecosystem status
-r4sub_packages()
-r4sub_update()
-r4sub_conflicts()
+# Ecosystem utilities
+r4sub_packages()   # versions and attachment status
+r4sub_status()     # installation check
+r4sub_conflicts()  # detect function name collisions
+r4sub_news()       # what changed in each package
+r4sub_cite()       # citation info for regulatory documents
+```
+
+## Suppress startup message
+
+```r
+options(r4sub.quiet = TRUE)
+library(r4sub)
 ```
 
 ## Packages
@@ -49,10 +58,23 @@ r4sub_conflicts()
 
 | Function | Purpose |
 |---|---|
-| `core_packages()` | List the 6 auto-attached packages |
-| `r4sub_packages()` | Show all packages with version and status |
-| `r4sub_update()` | Check installation status |
-| `r4sub_conflicts()` | Report function name conflicts |
+| `core_packages()` | List the 6 auto-attached package names |
+| `r4sub_packages()` | Show all packages with installed version and attachment status |
+| `r4sub_status()` | Check which ecosystem packages are installed |
+| `r4sub_conflicts()` | Report function name conflicts with other loaded packages |
+| `r4sub_news()` | Show NEWS entries for each ecosystem package |
+| `r4sub_cite()` | Print citation information for regulatory or academic use |
+
+## Managing Conflicts
+
+If another loaded package exports a function with the same name as an R4SUB function, use the `::` operator to be explicit:
+
+```r
+r4subcore::validate_evidence(ev)
+r4subscore::compute_sci(pillar_scores)
+```
+
+Run `r4sub_conflicts()` after `library(r4sub)` to see any collisions.
 
 ## License
 

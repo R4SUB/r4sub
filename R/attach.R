@@ -29,8 +29,8 @@ r4sub_attach_message <- function(pkgs) {
 
   max_len <- max(nchar(pkgs))
   lines <- vapply(seq_along(pkgs), function(i) {
-    pad <- strrep(" ", max_len - nchar(pkgs[i]))
-    paste0("  ", pkgs[i], pad, " ", versions[i])
+    pad <- strrep(" ", max_len - nchar(pkgs[i]) + 1L)
+    paste0("  ", pkgs[i], pad, versions[i])
   }, character(1))
 
   header <- paste0(
@@ -43,6 +43,8 @@ r4sub_attach_message <- function(pkgs) {
 }
 
 .onAttach <- function(libname, pkgname) {
+  if (isTRUE(getOption("r4sub.quiet"))) return(invisible(NULL))
+
   needed <- core_packages()
   attached <- needed[is_attached(needed)]
 

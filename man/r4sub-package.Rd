@@ -6,7 +6,7 @@
 \alias{r4sub-package}
 \title{r4sub: Easily Install and Load the R4SUB Ecosystem}
 \description{
-The 'r4sub' package is a meta-package that installs and loads core packages of the R4SUB clinical submission readiness ecosystem. Loading 'r4sub' attaches 'r4subcore', 'r4subtrace', 'r4subscore', 'r4subrisk', 'r4subdata', and 'r4subprofile'. The dashboard package 'r4subui' is available but not auto-attached.
+The 'r4sub' package is a meta-package that installs and loads core packages of the R4SUB (R for Regulatory Submission) clinical submission readiness ecosystem. Loading 'r4sub' attaches 'r4subcore', 'r4subtrace', 'r4subscore', 'r4subrisk', 'r4subdata', and 'r4subprofile'. The dashboard package 'r4subui' is available but not auto-attached.
 }
 \seealso{
 Useful links:
@@ -17,7 +17,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Pawan Rama Mali \email{prm@outlook.in}
+\strong{Maintainer}: Pawan Rama Mali \email{prm@outlook.in} (\href{https://orcid.org/0000-0001-7864-5819}{ORCID}) [copyright holder]
 
 }
 \keyword{internal}
