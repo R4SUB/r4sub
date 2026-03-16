@@ -8,26 +8,25 @@ Authors@R:
 Description: The 'r4sub' package is a meta-package that installs and loads
     core packages of the R4SUB (R for Regulatory Submission) clinical
     submission readiness ecosystem. Loading 'r4sub' attaches 'r4subcore',
-    'r4subtrace', 'r4subscore', 'r4subrisk', 'r4subdata', and 'r4subprofile'.
-    The dashboard package 'r4subui' is available but not auto-attached.
+    'r4subtrace', 'r4subscore', 'r4subrisk', 'r4subdata', and
+    'r4subprofile'.
 License: MIT + file LICENSE
-URL: https://github.com/R4SUB/r4sub
+URL: https://r4sub.github.io/r4sub/, https://github.com/R4SUB/r4sub
 BugReports: https://github.com/R4SUB/r4sub/issues
 Depends:
-    R (>= 4.2),
+    R (>= 4.2)
+Imports:
+    cli,
     r4subcore,
     r4subdata,
     r4subprofile,
     r4subrisk,
     r4subscore,
-    r4subtrace
-Imports:
-    cli,
+    r4subtrace,
     rlang,
     tibble,
     utils
 Suggests:
-    r4subui,
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
 Encoding: UTF-8
