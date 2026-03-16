@@ -18,9 +18,9 @@ navbar:
       aria-label: GitHub
 
 home:
-  title: "r4sub — R for Regulatory Submission"
+  title: "r4sub — Ready for Submission"
   description: >
-    Meta-package that installs and loads the complete R4SUB (R for Regulatory
+    Meta-package that installs and loads the complete R4SUB (Ready for
     Submission) ecosystem: r4subcore, r4subdata, r4subprofile, r4subrisk,
     r4subscore, r4subtrace, and r4subusability.
 

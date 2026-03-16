@@ -7,7 +7,7 @@
 [![r-universe](https://r4sub.r-universe.dev/badges/r4sub)](https://r4sub.r-universe.dev/r4sub)
 <!-- badges: end -->
 
-**r4sub** is the meta-package for the **R4SUB** (R for Regulatory Submission) clinical submission readiness ecosystem. A single `library(r4sub)` call installs and attaches all core packages.
+**r4sub** is the meta-package for the **R4SUB** (Ready for Submission) clinical submission readiness ecosystem. A single `library(r4sub)` call installs and attaches all core packages.
 
 ## Installation
 
