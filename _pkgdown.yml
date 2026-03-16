@@ -24,6 +24,12 @@ home:
     Submission) ecosystem: r4subcore, r4subdata, r4subprofile, r4subrisk,
     r4subscore, r4subtrace, and r4subusability.
 
+articles:
+  - title: "Demos"
+    navbar: ~
+    contents:
+      - end-to-end
+
 reference:
   - title: "Ecosystem"
     contents:

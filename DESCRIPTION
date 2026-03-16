@@ -27,7 +27,16 @@ Imports:
     tibble,
     utils
 Suggests:
+    knitr,
+    r4subdata,
+    r4subrisk,
+    r4subtrace,
+    r4subprofile,
+    r4subusability,
+    r4subui,
+    rmarkdown,
     testthat (>= 3.0.0)
+VignetteBuilder: knitr
 Config/testthat/edition: 3
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)

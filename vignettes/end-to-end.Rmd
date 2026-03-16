@@ -1,0 +1,259 @@
+---
+title: "End-to-End: From Evidence to Submission Decision"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{End-to-End: From Evidence to Submission Decision}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse  = TRUE,
+  comment   = "#>",
+  fig.width = 7,
+  fig.height = 4
+)
+```
+
+This vignette walks through the complete R4SUB workflow from loading evidence
+to obtaining a regulatory-calibrated Submission Confidence Index (SCI).
+
+## 1. Load the ecosystem
+
+One call loads all R4SUB packages:
+
+```{r load}
+library(r4sub)
+```
+
+## 2. Inspect available example data
+
+```{r datasets}
+library(r4subdata)
+list_datasets()
+```
+
+## 3. Load evidence
+
+`evidence_pharma` is a 250-row evidence table covering study CDISCPILOT01
+across all four readiness pillars.
+
+```{r evidence}
+data(evidence_pharma)
+
+# Schema overview
+str(evidence_pharma[, c("indicator_domain", "severity", "result",
+                         "asset_type", "indicator_id")])
+
+# Pass / warn / fail breakdown
+evidence_summary(evidence_pharma)
+```
+
+## 4. Compute the Submission Confidence Index
+
+```{r score}
+# Indicator-level scores
+ind_scores <- compute_indicator_scores(evidence_pharma)
+head(ind_scores)
+
+# Pillar scores (quality, trace, risk, usability)
+pillar_scores <- compute_pillar_scores(evidence_pharma)
+pillar_scores
+
+# SCI
+sci <- compute_sci(pillar_scores)
+cat("SCI:", sci$SCI, "\n")
+cat("Band:", sci$band, "\n")
+```
+
+```{r pillar-chart, fig.cap="Pillar scores contributing to the SCI"}
+scores_vec <- setNames(pillar_scores$score, pillar_scores$pillar)
+cols <- c(quality   = "#2C6DB5",
+          trace     = "#27AE60",
+          risk      = "#E74C3C",
+          usability = "#F39C12")
+
+par(mar = c(4, 6, 3, 2))
+barplot(
+  scores_vec[names(cols)],
+  horiz  = TRUE,
+  las    = 1,
+  col    = cols[names(scores_vec)],
+  border = NA,
+  xlim   = c(0, 1),
+  xlab   = "Score (0–1)",
+  main   = paste0("Pillar Scores  |  SCI = ", round(sci$SCI, 1),
+                  "  [", sci$band, "]")
+)
+abline(v = 0.85, lty = 2, col = "#555555")
+```
+
+## 5. Understand what's driving the score
+
+```{r explain}
+explanation <- sci_explain(evidence_pharma)
+head(explanation$top_loss, 8)
+```
+
+## 6. Apply a regulatory authority profile
+
+Calibrate the SCI weights for an FDA NDA submission:
+
+```{r profile}
+prof <- submission_profile("FDA", "NDA")
+prof$pillar_weights
+
+# Validate evidence completeness against the profile
+val <- validate_against_profile(evidence_pharma, prof)
+cat("Compliant:", val$is_compliant, "\n")
+cat("Coverage: ", round(val$coverage * 100, 1), "%\n", sep = "")
+
+if (length(val$missing_indicators) > 0) {
+  cat("Missing indicators:\n")
+  print(val$missing_indicators)
+}
+```
+
+```{r profile-sci}
+# Re-score using FDA-specific pillar weights
+pillar_fda <- compute_pillar_scores(evidence_pharma,
+                                    config = profile_sci_config(prof))
+sci_fda    <- compute_sci(pillar_fda, config = profile_sci_config(prof))
+cat("FDA-calibrated SCI:", sci_fda$SCI, "[", sci_fda$band, "]\n")
+```
+
+## 7. Compare authority profiles
+
+```{r compare-profiles, fig.cap="SCI under different regulatory authority profiles"}
+authorities <- list(
+  "FDA / NDA"  = submission_profile("FDA",  "NDA"),
+  "EMA / MAA"  = submission_profile("EMA",  "MAA"),
+  "PMDA / NDA" = submission_profile("PMDA", "NDA_JP")
+)
+
+sci_vals <- vapply(authorities, function(p) {
+  compute_sci(
+    compute_pillar_scores(evidence_pharma, config = profile_sci_config(p)),
+    config = profile_sci_config(p)
+  )$SCI
+}, numeric(1))
+
+par(mar = c(5, 8, 3, 2))
+barplot(
+  sci_vals,
+  horiz  = TRUE,
+  las    = 1,
+  col    = "#2C6DB5",
+  border = NA,
+  xlim   = c(0, 100),
+  xlab   = "SCI (0–100)",
+  main   = "SCI by Regulatory Authority Profile"
+)
+abline(v = 85, lty = 2, col = "#27AE60")
+abline(v = 70, lty = 2, col = "#F39C12")
+text(86, 0.7, "Ready", col = "#27AE60", cex = 0.8, adj = 0)
+text(71, 1.9, "Minor gaps", col = "#F39C12", cex = 0.8, adj = 0)
+```
+
+## 8. Risk assessment
+
+```{r risk}
+data(risk_register_pharma)
+rr     <- create_risk_register(risk_register_pharma)
+scores <- compute_risk_scores(rr)
+
+cat("Mean RPN:    ", round(scores$mean_rpn, 1), "\n")
+cat("Max RPN:     ", scores$max_rpn, "\n")
+cat("Critical risks:", scores$n_critical, "\n")
+cat("High risks:    ", scores$n_high, "\n")
+```
+
+```{r risk-chart, fig.cap="Risk distribution by severity level"}
+dist <- scores$level_distribution
+par(mar = c(4, 4, 3, 2))
+barplot(
+  dist,
+  col    = c(low = "#27AE60", medium = "#F39C12",
+             high = "#E67E22", critical = "#E74C3C")[names(dist)],
+  border = NA,
+  ylab   = "Count",
+  main   = "Risk Register: Level Distribution",
+  las    = 1
+)
+```
+
+## 9. Traceability coverage
+
+```{r trace}
+data(adam_metadata)
+data(sdtm_metadata)
+data(trace_mapping)
+
+tm  <- build_trace_model(adam_metadata, sdtm_metadata, trace_mapping)
+ctx <- r4sub_run_context(study_id = "CDISCPILOT01", environment = "review")
+ev_trace <- trace_model_to_evidence(tm, ctx = ctx,
+                                    source_name    = "r4subtrace",
+                                    source_version = "0.1.0")
+
+ind_trace <- trace_indicator_scores(ev_trace)
+ind_trace[, c("indicator_id", "indicator_name", "score", "result")]
+```
+
+## 10. Sensitivity analysis
+
+How stable is the SCI if pillar weights shift?
+
+```{r sensitivity, fig.cap="SCI sensitivity to pillar weight variations"}
+sens <- sci_sensitivity_analysis(evidence_pharma)
+scenarios <- sens$scenarios
+
+par(mar = c(5, 10, 3, 2))
+barplot(
+  setNames(scenarios$sci, scenarios$scenario),
+  horiz  = TRUE,
+  las    = 1,
+  col    = "#2C6DB5",
+  border = NA,
+  xlim   = c(0, 100),
+  xlab   = "SCI (0–100)",
+  main   = "SCI Sensitivity by Weight Scenario"
+)
+abline(v = sens$base_sci, lty = 2, col = "#E74C3C")
+```
+
+## 11. Launch the dashboard
+
+The interactive Shiny dashboard provides a point-and-click interface for all
+of the above:
+
+```r
+library(r4subui)
+r4sub_app(evidence = evidence_pharma)
+```
+
+The dashboard opens in your browser with eight tabs:
+**Overview · Evidence · Indicators · Pillars · Sensitivity · Risk · Traceability · Authority**
+
+## Summary
+
+```{r summary-table, echo = FALSE}
+knitr::kable(
+  data.frame(
+    Step      = c("Load data", "Score", "Profile", "Risk", "Trace", "Dashboard"),
+    Package   = c("r4subdata", "r4subscore", "r4subprofile",
+                  "r4subrisk", "r4subtrace", "r4subui"),
+    `Key output` = c(
+      "evidence_pharma (250 rows, 4 pillars)",
+      paste0("SCI = ", round(sci$SCI, 1), " [", sci$band, "]"),
+      paste0("FDA NDA: ", round(sci_fda$SCI, 1), " | Compliant: ", val$is_compliant),
+      paste0("Mean RPN = ", round(scores$mean_rpn, 1),
+             ", Critical = ", scores$n_critical),
+      paste0(nrow(ev_trace), " trace evidence rows"),
+      "Interactive browser dashboard"
+    ),
+    check.names = FALSE
+  ),
+  align = "lll"
+)
+```

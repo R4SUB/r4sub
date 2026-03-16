@@ -9,6 +9,11 @@
 
 **r4sub** is the meta-package for the **R4SUB** (Ready for Submission) clinical submission readiness ecosystem. A single `library(r4sub)` call installs and attaches all core packages.
 
+## End-to-End Demo
+
+See the **[End-to-End vignette](https://r4sub.github.io/r4sub/articles/end-to-end.html)** for a complete walkthrough:
+load evidence → score → profile → risk → traceability → dashboard.
+
 ## Installation
 
 ```r
