@@ -1,10 +1,9 @@
 # r4sub
 
-**r4sub** is the meta-package for the R4SUB (R for Regulatory
-Submission) clinical submission readiness ecosystem.
-
-A single [`library(r4sub)`](https://r4sub.github.io/r4sub/) call
-installs and attaches all core packages.
+**r4sub** is the meta-package for the **R4SUB** (R for Regulatory
+Submission) clinical submission readiness ecosystem. A single
+[`library(r4sub)`](https://r4sub.github.io/r4sub/) call installs and
+attaches all core packages.
 
 ## Installation
 
@@ -12,22 +11,29 @@ installs and attaches all core packages.
 install.packages("r4sub")
 ```
 
+Development version:
+
+``` r
+pak::pak("R4SUB/r4sub")
+```
+
 ## Usage
 
 ``` r
 library(r4sub)
-# -- Attaching R4SUB packages (r4sub 0.1.0) -----
-#   r4subcore    0.1.1
-#   r4subtrace   0.1.0
-#   r4subscore   0.1.0
-#   r4subrisk    0.1.0
-#   r4subdata    0.1.1
-#   r4subprofile 0.1.0
+# ── Attaching R4SUB packages ───────────────────────────────────────────
+#   r4subcore      0.1.2
+#   r4subtrace     0.1.1
+#   r4subscore     0.1.1
+#   r4subrisk      0.1.1
+#   r4subdata      0.1.2
+#   r4subprofile   0.1.1
+#   r4subusability 0.1.0
 
 # All ecosystem functions are now available
-data(evidence_pharma)                                    # from r4subdata
-scores <- compute_indicator_scores(evidence_pharma)      # from r4subscore
-sci    <- compute_sci(compute_pillar_scores(scores))     # from r4subscore
+data(evidence_pharma)                                    # r4subdata
+scores <- compute_indicator_scores(evidence_pharma)      # r4subscore
+sci    <- compute_sci(compute_pillar_scores(scores))     # r4subscore
 
 # Ecosystem utilities
 r4sub_packages()   # versions and attachment status
@@ -37,7 +43,7 @@ r4sub_news()       # what changed in each package
 r4sub_cite()       # citation info for regulatory documents
 ```
 
-## Suppress startup message
+## Suppress Startup Message
 
 ``` r
 options(r4sub.quiet = TRUE)
@@ -46,31 +52,31 @@ library(r4sub)
 
 ## Packages
 
-| Package          | Purpose                                      | Auto-attached?          |
-|------------------|----------------------------------------------|-------------------------|
-| **r4subcore**    | Evidence schema, scoring primitives, parsers | Yes                     |
-| **r4subtrace**   | ADaM/SDTM traceability engine                | Yes                     |
-| **r4subscore**   | Submission Confidence Index (SCI) scoring    | Yes                     |
-| **r4subrisk**    | FMEA-based risk quantification               | Yes                     |
-| **r4subdata**    | Example datasets for demos and testing       | Yes                     |
-| **r4subprofile** | Regulatory submission profiles               | Yes                     |
-| **r4subui**      | Interactive Shiny dashboard                  | No (install separately) |
+| Package            | Purpose                                                       | Auto-attached           |
+|--------------------|---------------------------------------------------------------|-------------------------|
+| **r4subcore**      | Evidence schema, scoring primitives, parsers                  | Yes                     |
+| **r4subtrace**     | ADaM/SDTM traceability engine                                 | Yes                     |
+| **r4subscore**     | Submission Confidence Index (SCI) scoring                     | Yes                     |
+| **r4subrisk**      | FMEA-based risk quantification                                | Yes                     |
+| **r4subdata**      | Example datasets for demos and testing                        | Yes                     |
+| **r4subprofile**   | Regulatory submission profiles                                | Yes                     |
+| **r4subusability** | Usability indicators (label quality, Define-XML, annotations) | Yes                     |
+| **r4subui**        | Interactive Shiny dashboard                                   | No (install separately) |
 
-## Exported Functions
+## Key Functions
 
-| Function                                                                          | Purpose                                                        |
-|-----------------------------------------------------------------------------------|----------------------------------------------------------------|
-| [`core_packages()`](https://r4sub.github.io/r4sub/reference/core_packages.md)     | List the 6 auto-attached package names                         |
-| [`r4sub_packages()`](https://r4sub.github.io/r4sub/reference/r4sub_packages.md)   | Show all packages with installed version and attachment status |
-| [`r4sub_status()`](https://r4sub.github.io/r4sub/reference/r4sub_status.md)       | Check which ecosystem packages are installed                   |
-| [`r4sub_conflicts()`](https://r4sub.github.io/r4sub/reference/r4sub_conflicts.md) | Report function name conflicts with other loaded packages      |
-| [`r4sub_news()`](https://r4sub.github.io/r4sub/reference/r4sub_news.md)           | Show NEWS entries for each ecosystem package                   |
-| [`r4sub_cite()`](https://r4sub.github.io/r4sub/reference/r4sub_cite.md)           | Print citation information for regulatory or academic use      |
+| Function                                                                          | Purpose                                                   |
+|-----------------------------------------------------------------------------------|-----------------------------------------------------------|
+| [`core_packages()`](https://r4sub.github.io/r4sub/reference/core_packages.md)     | List the auto-attached package names                      |
+| [`r4sub_packages()`](https://r4sub.github.io/r4sub/reference/r4sub_packages.md)   | Show all packages with installed version and status       |
+| [`r4sub_status()`](https://r4sub.github.io/r4sub/reference/r4sub_status.md)       | Check which ecosystem packages are installed              |
+| [`r4sub_conflicts()`](https://r4sub.github.io/r4sub/reference/r4sub_conflicts.md) | Report function name conflicts with other packages        |
+| [`r4sub_news()`](https://r4sub.github.io/r4sub/reference/r4sub_news.md)           | Show NEWS entries for each ecosystem package              |
+| [`r4sub_cite()`](https://r4sub.github.io/r4sub/reference/r4sub_cite.md)           | Print citation information for regulatory or academic use |
 
 ## Managing Conflicts
 
-If another loaded package exports a function with the same name as an
-R4SUB function, use the `::` operator to be explicit:
+Use the `::` operator to be explicit when conflicts arise:
 
 ``` r
 r4subcore::validate_evidence(ev)

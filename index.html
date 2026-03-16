@@ -51,31 +51,36 @@
   <main id="main" class="col-md-9"><div class="section level1">
 <div class="page-header"><h1 id="r4sub">r4sub<a class="anchor" aria-label="anchor" href="#r4sub"></a>
 </h1></div>
-<p><strong>r4sub</strong> is the meta-package for the R4SUB (R for Regulatory Submission) clinical submission readiness ecosystem.</p>
-<p>A single <code><a href="https://r4sub.github.io/r4sub/">library(r4sub)</a></code> call installs and attaches all core packages.</p>
+<!-- badges: start -->
+
+<p><strong>r4sub</strong> is the meta-package for the <strong>R4SUB</strong> (R for Regulatory Submission) clinical submission readiness ecosystem. A single <code><a href="https://r4sub.github.io/r4sub/">library(r4sub)</a></code> call installs and attaches all core packages.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"r4sub"</span><span class="op">)</span></span></code></pre></div>
+<p>Development version:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">"R4SUB/r4sub"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
 </h2>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r4sub.github.io/r4sub/">r4sub</a></span><span class="op">)</span></span>
-<span><span class="co"># -- Attaching R4SUB packages (r4sub 0.1.0) -----</span></span>
-<span><span class="co">#   r4subcore    0.1.1</span></span>
-<span><span class="co">#   r4subtrace   0.1.0</span></span>
-<span><span class="co">#   r4subscore   0.1.0</span></span>
-<span><span class="co">#   r4subrisk    0.1.0</span></span>
-<span><span class="co">#   r4subdata    0.1.1</span></span>
-<span><span class="co">#   r4subprofile 0.1.0</span></span>
+<span><span class="co"># ── Attaching R4SUB packages ───────────────────────────────────────────</span></span>
+<span><span class="co">#   r4subcore      0.1.2</span></span>
+<span><span class="co">#   r4subtrace     0.1.1</span></span>
+<span><span class="co">#   r4subscore     0.1.1</span></span>
+<span><span class="co">#   r4subrisk      0.1.1</span></span>
+<span><span class="co">#   r4subdata      0.1.2</span></span>
+<span><span class="co">#   r4subprofile   0.1.1</span></span>
+<span><span class="co">#   r4subusability 0.1.0</span></span>
 <span></span>
 <span><span class="co"># All ecosystem functions are now available</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">evidence_pharma</span><span class="op">)</span>                                    <span class="co"># from r4subdata</span></span>
-<span><span class="va">scores</span> <span class="op">&lt;-</span> <span class="fu">compute_indicator_scores</span><span class="op">(</span><span class="va">evidence_pharma</span><span class="op">)</span>      <span class="co"># from r4subscore</span></span>
-<span><span class="va">sci</span>    <span class="op">&lt;-</span> <span class="fu">compute_sci</span><span class="op">(</span><span class="fu">compute_pillar_scores</span><span class="op">(</span><span class="va">scores</span><span class="op">)</span><span class="op">)</span>     <span class="co"># from r4subscore</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">evidence_pharma</span><span class="op">)</span>                                    <span class="co"># r4subdata</span></span>
+<span><span class="va">scores</span> <span class="op">&lt;-</span> <span class="fu">compute_indicator_scores</span><span class="op">(</span><span class="va">evidence_pharma</span><span class="op">)</span>      <span class="co"># r4subscore</span></span>
+<span><span class="va">sci</span>    <span class="op">&lt;-</span> <span class="fu">compute_sci</span><span class="op">(</span><span class="fu">compute_pillar_scores</span><span class="op">(</span><span class="va">scores</span><span class="op">)</span><span class="op">)</span>     <span class="co"># r4subscore</span></span>
 <span></span>
 <span><span class="co"># Ecosystem utilities</span></span>
 <span><span class="fu"><a href="reference/r4sub_packages.html">r4sub_packages</a></span><span class="op">(</span><span class="op">)</span>   <span class="co"># versions and attachment status</span></span>
@@ -85,9 +90,9 @@
 <span><span class="fu"><a href="reference/r4sub_cite.html">r4sub_cite</a></span><span class="op">(</span><span class="op">)</span>       <span class="co"># citation info for regulatory documents</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="suppress-startup-message">Suppress startup message<a class="anchor" aria-label="anchor" href="#suppress-startup-message"></a>
+<h2 id="suppress-startup-message">Suppress Startup Message<a class="anchor" aria-label="anchor" href="#suppress-startup-message"></a>
 </h2>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>r4sub.quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r4sub.github.io/r4sub/">r4sub</a></span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -95,10 +100,15 @@
 <h2 id="packages">Packages<a class="anchor" aria-label="anchor" href="#packages"></a>
 </h2>
 <table class="table">
+<colgroup>
+<col width="33%">
+<col width="33%">
+<col width="33%">
+</colgroup>
 <thead><tr class="header">
 <th>Package</th>
 <th>Purpose</th>
-<th>Auto-attached?</th>
+<th>Auto-attached</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
@@ -132,6 +142,11 @@
 <td>Yes</td>
 </tr>
 <tr class="odd">
+<td><strong>r4subusability</strong></td>
+<td>Usability indicators (label quality, Define-XML, annotations)</td>
+<td>Yes</td>
+</tr>
+<tr class="even">
 <td><strong>r4subui</strong></td>
 <td>Interactive Shiny dashboard</td>
 <td>No (install separately)</td>
@@ -140,7 +155,7 @@
 </table>
 </div>
 <div class="section level2">
-<h2 id="exported-functions">Exported Functions<a class="anchor" aria-label="anchor" href="#exported-functions"></a>
+<h2 id="key-functions">Key Functions<a class="anchor" aria-label="anchor" href="#key-functions"></a>
 </h2>
 <table class="table">
 <colgroup>
@@ -154,11 +169,11 @@
 <tbody>
 <tr class="odd">
 <td><code><a href="reference/core_packages.html">core_packages()</a></code></td>
-<td>List the 6 auto-attached package names</td>
+<td>List the auto-attached package names</td>
 </tr>
 <tr class="even">
 <td><code><a href="reference/r4sub_packages.html">r4sub_packages()</a></code></td>
-<td>Show all packages with installed version and attachment status</td>
+<td>Show all packages with installed version and status</td>
 </tr>
 <tr class="odd">
 <td><code><a href="reference/r4sub_status.html">r4sub_status()</a></code></td>
@@ -166,7 +181,7 @@
 </tr>
 <tr class="even">
 <td><code><a href="reference/r4sub_conflicts.html">r4sub_conflicts()</a></code></td>
-<td>Report function name conflicts with other loaded packages</td>
+<td>Report function name conflicts with other packages</td>
 </tr>
 <tr class="odd">
 <td><code><a href="reference/r4sub_news.html">r4sub_news()</a></code></td>
@@ -182,8 +197,8 @@
 <div class="section level2">
 <h2 id="managing-conflicts">Managing Conflicts<a class="anchor" aria-label="anchor" href="#managing-conflicts"></a>
 </h2>
-<p>If another loaded package exports a function with the same name as an R4SUB function, use the <code>::</code> operator to be explicit:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<p>Use the <code>::</code> operator to be explicit when conflicts arise:</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">r4subcore</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/r4subcore/man/validate_evidence.html" class="external-link">validate_evidence</a></span><span class="op">(</span><span class="va">ev</span><span class="op">)</span></span>
 <span><span class="fu">r4subscore</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/r4subscore/man/compute_sci.html" class="external-link">compute_sci</a></span><span class="op">(</span><span class="va">pillar_scores</span><span class="op">)</span></span></code></pre></div>
 <p>Run <code><a href="reference/r4sub_conflicts.html">r4sub_conflicts()</a></code> after <code><a href="https://r4sub.github.io/r4sub/">library(r4sub)</a></code> to see any collisions.</p>
@@ -226,7 +241,15 @@
 </ul>
 </div>
 
-
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://github.com/R4SUB/r4sub/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/R4SUB/r4sub/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="https://CRAN.R-project.org/package=r4sub" class="external-link"><img src="https://www.r-pkg.org/badges/version/r4sub" alt="CRAN status"></a></li>
+<li><a href="https://CRAN.R-project.org/package=r4sub" class="external-link"><img src="https://cranlogs.r-pkg.org/badges/r4sub" alt="CRAN downloads"></a></li>
+<li><a href="https://r4sub.r-universe.dev/r4sub" class="external-link"><img src="https://r4sub.r-universe.dev/badges/r4sub" alt="r-universe"></a></li>
+</ul>
+</div>
 
   </aside>
 </div>
