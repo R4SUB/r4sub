@@ -43,13 +43,19 @@ r4sub_attach_message <- function(pkgs) {
 }
 
 .onAttach <- function(libname, pkgname) {
+  needed   <- core_packages()[!is_attached(core_packages())]
+  if (length(needed) > 0L) {
+    lapply(needed, function(pkg) {
+      suppressPackageStartupMessages(
+        library(pkg, character.only = TRUE, quietly = TRUE)
+      )
+    })
+  }
+
   if (isTRUE(getOption("r4sub.quiet"))) return(invisible(NULL))
 
-  needed <- core_packages()
-  attached <- needed[is_attached(needed)]
-
+  attached <- core_packages()[is_attached(core_packages())]
   if (length(attached) > 0L) {
-    msg <- r4sub_attach_message(attached)
-    packageStartupMessage(msg)
+    packageStartupMessage(r4sub_attach_message(attached))
   }
 }
