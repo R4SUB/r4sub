@@ -28,11 +28,11 @@ r4sub_packages()
 #>   package      version attached
 #>   <chr>        <chr>   <lgl>   
 #> 1 r4sub        0.1.0   TRUE    
-#> 2 r4subcore    0.1.0   FALSE   
-#> 3 r4subtrace   0.1.0   FALSE   
-#> 4 r4subscore   0.1.0   FALSE   
-#> 5 r4subrisk    0.1.0   FALSE   
-#> 6 r4subdata    0.1.1   FALSE   
-#> 7 r4subprofile 0.1.0   FALSE   
+#> 2 r4subcore    0.1.0   TRUE    
+#> 3 r4subtrace   0.1.0   TRUE    
+#> 4 r4subscore   0.1.0   TRUE    
+#> 5 r4subrisk    0.1.0   TRUE    
+#> 6 r4subdata    0.1.1   TRUE    
+#> 7 r4subprofile 0.1.0   TRUE    
 #> 8 r4subui      NA      FALSE   
 ```

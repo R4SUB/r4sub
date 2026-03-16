@@ -18,5 +18,5 @@ Returned invisibly. Prints conflicts if any exist.
 
 ``` r
 r4sub_conflicts()
-#> ℹ No R4SUB packages currently attached.
+#> ✔ No conflicts detected between R4SUB and other packages.
 ```
