@@ -2,6 +2,8 @@
 
 ## r4sub 0.1.0
 
+CRAN release: 2026-03-16
+
 - Initial CRAN release.
 - [`core_packages()`](https://r4sub.github.io/r4sub/reference/core_packages.md):
   list the 6 auto-attached ecosystem packages.

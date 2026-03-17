@@ -29,11 +29,32 @@ console.
 ``` r
 r4sub_news()
 #> ! No NEWS available for r4subcore.
-#> ! No NEWS available for r4subtrace.
-#> ! No NEWS available for r4subscore.
-#> ! No NEWS available for r4subrisk.
-#> ! No NEWS available for r4subdata.
-#> ! No NEWS available for r4subprofile.
+#> 
+#> ── r4subtrace ──
+#> 
+#>                         Changes in version 0.1.0                        
+#> 
+#>   - Initial CRAN release.
+#> ── r4subscore ──
+#> 
+#>                         Changes in version 0.1.0                        
+#> 
+#>   - Initial CRAN release.
+#> ── r4subrisk ──
+#> 
+#>                         Changes in version 0.1.0                        
+#> 
+#>   - Initial CRAN release.
+#> ── r4subdata ──
+#> 
+#>                         Changes in version 0.1.0                        
+#> 
+#>   - Initial CRAN release.
+#> ── r4subprofile ──
+#> 
+#>                         Changes in version 0.1.0                        
+#> 
+#>   - Initial CRAN release.
 r4sub_news("r4subcore")
 #> ! No NEWS available for r4subcore.
 ```

@@ -34,5 +34,5 @@ r4sub_packages()
 #> 5 r4subrisk    0.1.0   TRUE    
 #> 6 r4subdata    0.1.1   TRUE    
 #> 7 r4subprofile 0.1.0   TRUE    
-#> 8 r4subui      NA      FALSE   
+#> 8 r4subui      0.1.0   FALSE   
 ```

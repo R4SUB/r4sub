@@ -19,6 +19,5 @@ console.
 
 ``` r
 r4sub_status()
-#> ! Not installed: r4subui
-#> ✔ 7 R4SUB packages installed.
+#> ✔ 8 R4SUB packages installed.
 ```

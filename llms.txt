@@ -5,6 +5,13 @@ clinical submission readiness ecosystem. A single
 [`library(r4sub)`](https://r4sub.github.io/r4sub/) call installs and
 attaches all core packages.
 
+## End-to-End Demo
+
+See the **[End-to-End
+vignette](https://r4sub.github.io/r4sub/articles/end-to-end.html)** for
+a complete walkthrough: load evidence → score → profile → risk →
+traceability → dashboard.
+
 ## Installation
 
 ``` r
@@ -112,3 +119,9 @@ MIT
 - [`r4sub_conflicts()`](https://r4sub.github.io/r4sub/reference/r4sub_conflicts.md)
   : Show R4SUB Function Conflicts
 
+# Articles
+
+### Demos
+
+- [End-to-End: From Evidence to Submission
+  Decision](https://r4sub.github.io/r4sub/articles/end-to-end.md):

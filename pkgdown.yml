@@ -1,8 +1,9 @@
 pandoc: 3.1.11
 pkgdown: 2.2.0
 pkgdown_sha: ~
-articles: {}
-last_built: 2026-03-16T17:24Z
+articles:
+  end-to-end: end-to-end.html
+last_built: 2026-03-17T05:34Z
 urls:
   reference: https://r4sub.github.io/r4sub/reference
   article: https://r4sub.github.io/r4sub/articles
