@@ -384,7 +384,7 @@ data(sdtm_metadata)
 data(trace_mapping)
 
 ctx      <- r4sub_run_context(study_id = "CDISCPILOT01", environment = "DEV")
-#> ℹ Run context created: "R4S-20260317053800-wl4dieex"
+#> ℹ Run context created: "R4S-20260317060916-wl4dieex"
 tm       <- build_trace_model(adam_metadata, sdtm_metadata, trace_mapping)
 ev_trace <- trace_model_to_evidence(tm, ctx = ctx)
 #> ✔ Evidence table created: 47 rows
@@ -433,7 +433,59 @@ variations](end-to-end_files/figure-html/sensitivity-1.png)
 
 SCI sensitivity to pillar weight variations
 
-## 10. Launch the dashboard
+## 10. Ingesting real submission artifacts
+
+The steps above used packaged demo data. In practice you point r4subcore
+parsers directly at the files on disk — no manual preparation needed.
+
+### Define-XML
+
+`define_xml_to_evidence()` reads a Define-XML 2.0/2.1 file and scores
+dataset labels, variable documentation, and derivation completeness
+(indicators Q-DEFINE-001 through Q-DEFINE-003).
+
+``` r
+library(r4subcore)
+
+ctx    <- r4sub_run_context("CDISCPILOT01", "DEV")
+ev_def <- define_xml_to_evidence("path/to/define.xml", ctx)
+
+# Drop into the standard scoring pipeline
+pillar_scores_def <- compute_pillar_scores(ev_def)
+compute_sci(pillar_scores_def)
+```
+
+### Pinnacle 21 validation output
+
+Export the issues list from Pinnacle 21 Enterprise as CSV, then pass the
+data frame to
+[`p21_to_evidence()`](https://rdrr.io/pkg/r4subcore/man/p21_to_evidence.html).
+Column names are detected case-insensitively (Rule / Rule ID, Severity,
+Dataset, Variable, Status / Result).
+
+``` r
+p21_raw <- read.csv("path/to/p21_issues.csv")
+ev_p21  <- p21_to_evidence(p21_raw, ctx)
+```
+
+### Combining sources
+
+Evidence from multiple parsers is merged with
+[`bind_evidence()`](https://rdrr.io/pkg/r4subcore/man/bind_evidence.html)
+before scoring:
+
+``` r
+ev_combined <- bind_evidence(ev_def, ev_p21)
+sci_combined <- compute_sci(compute_pillar_scores(ev_combined))
+```
+
+All evidence rows carry the same `run_id` from the shared context, so
+every score is fully traceable back to the source files and the run that
+produced it.
+
+------------------------------------------------------------------------
+
+## 11. Launch the dashboard
 
 ``` r
 library(r4subui)
@@ -444,7 +496,7 @@ The dashboard opens in your browser with eight tabs: **Overview ·
 Evidence · Indicators · Pillars · Sensitivity · Risk · Traceability ·
 Authority**
 
-## Summary
+## Summary — demo data workflow
 
 | Step      | Package      | Output                               |
 |:----------|:-------------|:-------------------------------------|

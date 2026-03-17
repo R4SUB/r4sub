@@ -440,7 +440,7 @@ Risk distribution by severity level
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">trace_mapping</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">ctx</span>      <span class="op">&lt;-</span> <span class="fu">r4sub_run_context</span><span class="op">(</span>study_id <span class="op">=</span> <span class="st">"CDISCPILOT01"</span>, environment <span class="op">=</span> <span class="st">"DEV"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Run context created: <span style="color: #0000BB;">"R4S-20260317053800-wl4dieex"</span></span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Run context created: <span style="color: #0000BB;">"R4S-20260317060916-wl4dieex"</span></span></span>
 <span><span class="va">tm</span>       <span class="op">&lt;-</span> <span class="fu">build_trace_model</span><span class="op">(</span><span class="va">adam_metadata</span>, <span class="va">sdtm_metadata</span>, <span class="va">trace_mapping</span><span class="op">)</span></span>
 <span><span class="va">ev_trace</span> <span class="op">&lt;-</span> <span class="fu">trace_model_to_evidence</span><span class="op">(</span><span class="va">tm</span>, ctx <span class="op">=</span> <span class="va">ctx</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Evidence table created: 47 rows</span></span>
@@ -489,9 +489,56 @@ SCI sensitivity to pillar weight variations
 </div>
 </div>
 <div class="section level2">
-<h2 id="launch-the-dashboard">10. Launch the dashboard<a class="anchor" aria-label="anchor" href="#launch-the-dashboard"></a>
+<h2 id="ingesting-real-submission-artifacts">10. Ingesting real submission artifacts<a class="anchor" aria-label="anchor" href="#ingesting-real-submission-artifacts"></a>
 </h2>
+<p>The steps above used packaged demo data. In practice you point
+r4subcore parsers directly at the files on disk — no manual preparation
+needed.</p>
+<div class="section level3">
+<h3 id="define-xml">Define-XML<a class="anchor" aria-label="anchor" href="#define-xml"></a>
+</h3>
+<p><code>define_xml_to_evidence()</code> reads a Define-XML 2.0/2.1 file
+and scores dataset labels, variable documentation, and derivation
+completeness (indicators Q-DEFINE-001 through Q-DEFINE-003).</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/R4SUB/r4subcore" class="external-link">r4subcore</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">ctx</span>    <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/r4subcore/man/r4sub_run_context.html" class="external-link">r4sub_run_context</a></span><span class="op">(</span><span class="st">"CDISCPILOT01"</span>, <span class="st">"DEV"</span><span class="op">)</span></span>
+<span><span class="va">ev_def</span> <span class="op">&lt;-</span> <span class="fu">define_xml_to_evidence</span><span class="op">(</span><span class="st">"path/to/define.xml"</span>, <span class="va">ctx</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Drop into the standard scoring pipeline</span></span>
+<span><span class="va">pillar_scores_def</span> <span class="op">&lt;-</span> <span class="fu">compute_pillar_scores</span><span class="op">(</span><span class="va">ev_def</span><span class="op">)</span></span>
+<span><span class="fu">compute_sci</span><span class="op">(</span><span class="va">pillar_scores_def</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="pinnacle-21-validation-output">Pinnacle 21 validation output<a class="anchor" aria-label="anchor" href="#pinnacle-21-validation-output"></a>
+</h3>
+<p>Export the issues list from Pinnacle 21 Enterprise as CSV, then pass
+the data frame to <code><a href="https://rdrr.io/pkg/r4subcore/man/p21_to_evidence.html" class="external-link">p21_to_evidence()</a></code>. Column names are
+detected case-insensitively (Rule / Rule ID, Severity, Dataset,
+Variable, Status / Result).</p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">p21_raw</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="st">"path/to/p21_issues.csv"</span><span class="op">)</span></span>
+<span><span class="va">ev_p21</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/r4subcore/man/p21_to_evidence.html" class="external-link">p21_to_evidence</a></span><span class="op">(</span><span class="va">p21_raw</span>, <span class="va">ctx</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="combining-sources">Combining sources<a class="anchor" aria-label="anchor" href="#combining-sources"></a>
+</h3>
+<p>Evidence from multiple parsers is merged with
+<code><a href="https://rdrr.io/pkg/r4subcore/man/bind_evidence.html" class="external-link">bind_evidence()</a></code> before scoring:</p>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ev_combined</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/r4subcore/man/bind_evidence.html" class="external-link">bind_evidence</a></span><span class="op">(</span><span class="va">ev_def</span>, <span class="va">ev_p21</span><span class="op">)</span></span>
+<span><span class="va">sci_combined</span> <span class="op">&lt;-</span> <span class="fu">compute_sci</span><span class="op">(</span><span class="fu">compute_pillar_scores</span><span class="op">(</span><span class="va">ev_combined</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>All evidence rows carry the same <code>run_id</code> from the shared
+context, so every score is fully traceable back to the source files and
+the run that produced it.</p>
+<hr>
+</div>
+</div>
+<div class="section level2">
+<h2 id="launch-the-dashboard">11. Launch the dashboard<a class="anchor" aria-label="anchor" href="#launch-the-dashboard"></a>
+</h2>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r4sub.github.io/r4subui/">r4subui</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://r4sub.github.io/r4subui/reference/r4sub_app.html">r4sub_app</a></span><span class="op">(</span>evidence <span class="op">=</span> <span class="va">evidence_pharma</span><span class="op">)</span></span></code></pre></div>
 <p>The dashboard opens in your browser with eight tabs: <strong>Overview
@@ -499,7 +546,7 @@ SCI sensitivity to pillar weight variations
 Authority</strong></p>
 </div>
 <div class="section level2">
-<h2 id="summary">Summary<a class="anchor" aria-label="anchor" href="#summary"></a>
+<h2 id="summary-demo-data-workflow">Summary — demo data workflow<a class="anchor" aria-label="anchor" href="#summary-demo-data-workflow"></a>
 </h2>
 <table class="table">
 <thead><tr class="header">
