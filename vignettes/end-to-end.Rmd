@@ -183,7 +183,7 @@ tm       <- build_trace_model(adam_metadata, sdtm_metadata, trace_mapping)
 ev_trace <- trace_model_to_evidence(tm, ctx = ctx)
 
 ind_trace <- trace_indicator_scores(ev_trace)
-ind_trace[, c("indicator_id", "indicator_name", "score", "result")]
+ind_trace
 ```
 
 ## 9. Sensitivity analysis
