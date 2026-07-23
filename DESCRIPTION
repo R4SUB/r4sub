@@ -1,0 +1,43 @@
+Package: r4sub
+Title: Easily Install and Load the R4SUB Ecosystem
+Version: 0.1.0
+Authors@R:
+    person("Pawan Rama", "Mali", email = "prm@outlook.in",
+           role = c("aut", "cre", "cph"),
+           comment = c(ORCID = "0000-0001-7864-5819"))
+Description: The 'r4sub' package is a meta-package that installs and loads
+    core packages of the R4SUB (Ready for Submission) clinical
+    submission readiness ecosystem. Loading 'r4sub' attaches 'r4subcore',
+    'r4subtrace', 'r4subscore', 'r4subrisk', 'r4subdata', and
+    'r4subprofile'.
+License: MIT + file LICENSE
+URL: https://r4sub.github.io/r4sub/, https://github.com/R4SUB/r4sub
+BugReports: https://github.com/R4SUB/r4sub/issues
+Depends:
+    R (>= 4.2)
+Imports:
+    cli,
+    r4subcore,
+    r4subdata,
+    r4subprofile,
+    r4subrisk,
+    r4subscore,
+    r4subtrace,
+    rlang,
+    tibble,
+    utils
+Suggests:
+    knitr,
+    r4subdata,
+    r4subrisk,
+    r4subtrace,
+    r4subprofile,
+    r4subusability,
+    r4subui,
+    rmarkdown,
+    testthat (>= 3.0.0)
+VignetteBuilder: knitr
+Config/testthat/edition: 3
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.3

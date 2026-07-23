@@ -1,0 +1,48 @@
+url: https://r4sub.github.io/r4sub/
+
+template:
+  bootstrap: 5
+  bootswatch: flatly
+  bslib:
+    primary: "#2C6DB5"
+
+navbar:
+  bg: light
+  structure:
+    left: [intro, reference, articles, news]
+    right: [search, github]
+  components:
+    github:
+      icon: fab fa-github
+      href: https://github.com/R4SUB/r4sub
+      aria-label: GitHub
+
+home:
+  title: "r4sub — Ready for Submission"
+  description: >
+    Meta-package that installs and loads the complete R4SUB (Ready for
+    Submission) ecosystem: r4subcore, r4subdata, r4subprofile, r4subrisk,
+    r4subscore, r4subtrace, and r4subusability.
+
+articles:
+  - title: "Demos"
+    navbar: ~
+    contents:
+      - end-to-end
+
+reference:
+  - title: "Ecosystem"
+    contents:
+      - r4sub_packages
+      - core_packages
+      - r4sub_status
+  - title: "Information"
+    contents:
+      - r4sub_news
+      - r4sub_cite
+      - r4sub_conflicts
+
+footer:
+  structure:
+    left: developed_by
+    right: built_with
