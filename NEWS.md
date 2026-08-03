@@ -1,5 +1,9 @@
 # r4sub (development version)
 
+- Add vignette: "R4SUB and pharmaverse", documenting how R4SUB reads what
+  admiral, xportr, and other pharmaverse tools produce, and how riskmetric
+  (tooling risk) and r4subrisk (submission risk) complement each other.
+
 - Rewrote the README: clearer purpose, quick-start example, and links to every
   ecosystem repository.
 - Corrected the README package table and startup example — `r4subusability` is
