@@ -6,11 +6,12 @@
 \alias{r4sub-package}
 \title{r4sub: Easily Install and Load the R4SUB Ecosystem}
 \description{
-The 'r4sub' package is a meta-package that installs and loads core packages of the R4SUB (R for Regulatory Submission) clinical submission readiness ecosystem. Loading 'r4sub' attaches 'r4subcore', 'r4subtrace', 'r4subscore', 'r4subrisk', 'r4subdata', and 'r4subprofile'. The dashboard package 'r4subui' is available but not auto-attached.
+The 'r4sub' package is a meta-package that installs and loads core packages of the R4SUB (Ready for Submission) clinical submission readiness ecosystem. Loading 'r4sub' attaches 'r4subcore', 'r4subtrace', 'r4subscore', 'r4subrisk', 'r4subdata', 'r4subprofile', and 'r4subusability'.
 }
 \seealso{
 Useful links:
 \itemize{
+  \item \url{https://r4sub.github.io/r4sub/}
   \item \url{https://github.com/R4SUB/r4sub}
   \item Report bugs at \url{https://github.com/R4SUB/r4sub/issues}
 }

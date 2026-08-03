@@ -35,13 +35,14 @@ pak::pak("R4SUB/r4sub")
 
 ```r
 library(r4sub)
-#> -- Attaching R4SUB packages (r4sub 0.1.0) ------------------------------
-#>   r4subcore    0.1.2
-#>   r4subtrace   0.1.1
-#>   r4subscore   0.1.1
-#>   r4subrisk    0.1.1
-#>   r4subdata    0.1.2
-#>   r4subprofile 0.1.1
+#> -- Attaching R4SUB packages (r4sub 0.2.0) ------------------------------
+#>   r4subcore      0.1.2
+#>   r4subtrace     0.1.1
+#>   r4subscore     0.1.1
+#>   r4subrisk      0.1.1
+#>   r4subdata      0.1.2
+#>   r4subprofile   0.1.1
+#>   r4subusability 0.1.0
 
 # A worked example: load evidence -> score -> summarise
 data(evidence_pharma)                                # r4subdata
@@ -62,10 +63,10 @@ for the full walkthrough: load evidence, score, profile, assess risk, check trac
 | [r4subrisk](https://github.com/R4SUB/r4subrisk) | FMEA-based risk quantification | ✅ |
 | [r4subdata](https://github.com/R4SUB/r4subdata) | Example datasets for demos and testing | ✅ |
 | [r4subprofile](https://github.com/R4SUB/r4subprofile) | Regulatory submission profiles | ✅ |
-| [r4subusability](https://github.com/R4SUB/r4subusability) | Usability indicators (label quality, Define-XML, annotations) | Install separately |
+| [r4subusability](https://github.com/R4SUB/r4subusability) | Usability indicators (label quality, Define-XML, annotations) | ✅ |
 | [r4subui](https://github.com/R4SUB/r4subui) | Interactive Shiny dashboard | Install separately |
 
-`core_packages()` returns the six packages that are auto-attached.
+`core_packages()` returns the seven packages that are auto-attached.
 
 ## Ecosystem utilities
 

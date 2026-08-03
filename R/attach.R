@@ -11,7 +11,7 @@
 #' @export
 core_packages <- function() {
   c("r4subcore", "r4subtrace", "r4subscore", "r4subrisk",
-    "r4subdata", "r4subprofile")
+    "r4subdata", "r4subprofile", "r4subusability")
 }
 
 # Check which packages are attached to the search path

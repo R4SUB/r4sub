@@ -1,6 +1,6 @@
-test_that("core_packages returns 6 package names", {
+test_that("core_packages returns 7 package names", {
   pkgs <- core_packages()
-  expect_equal(length(pkgs), 6L)
+  expect_equal(length(pkgs), 7L)
   expect_true(is.character(pkgs))
 })
 
@@ -12,6 +12,7 @@ test_that("core_packages contains expected packages", {
   expect_true("r4subrisk" %in% pkgs)
   expect_true("r4subdata" %in% pkgs)
   expect_true("r4subprofile" %in% pkgs)
+  expect_true("r4subusability" %in% pkgs)
 })
 
 test_that("is_attached returns logical vector", {
