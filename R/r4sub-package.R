@@ -9,6 +9,7 @@
 #' @importFrom r4subrisk risk_config_default
 #' @importFrom r4subscore sci_config_default
 #' @importFrom r4subtrace trace_config_default
+#' @importFrom r4subusability usability_config_default
 #' @importFrom rlang .data
 #' @importFrom tibble tibble as_tibble
 #' @importFrom utils citation news packageVersion

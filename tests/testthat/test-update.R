@@ -11,7 +11,8 @@ test_that("r4sub_status has expected columns", {
 test_that("r4sub_status lists all ecosystem packages", {
   result <- suppressMessages(r4sub_status())
   expected <- c("r4sub", "r4subcore", "r4subtrace", "r4subscore",
-                "r4subrisk", "r4subdata", "r4subprofile", "r4subui")
+                "r4subrisk", "r4subdata", "r4subprofile", "r4subusability",
+                "r4subui")
   expect_true(all(expected %in% result$package))
 })
 

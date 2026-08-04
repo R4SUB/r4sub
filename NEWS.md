@@ -1,13 +1,13 @@
-# r4sub (development version)
+# r4sub 0.2.0
 
+- `r4subusability` is now a core package: `core_packages()` returns all seven
+  packages and `library(r4sub)` attaches `r4subusability` alongside the others.
+  It moves from Suggests to Imports, and the README table is updated to match.
 - Add vignette: "R4SUB and pharmaverse", documenting how R4SUB reads what
   admiral, xportr, and other pharmaverse tools produce, and how riskmetric
   (tooling risk) and r4subrisk (submission risk) complement each other.
-
 - Rewrote the README: clearer purpose, quick-start example, and links to every
   ecosystem repository.
-- Corrected the README package table and startup example — `r4subusability` is
-  installed separately and is not one of the six auto-attached core packages.
 - Fixed the `DESCRIPTION` to expand R4SUB as "Ready for Submission" (was
   inconsistent with the rest of the documentation).
 - Added a standard R package `.gitignore`.
