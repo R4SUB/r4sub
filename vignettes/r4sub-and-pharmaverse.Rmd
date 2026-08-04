@@ -1,0 +1,148 @@
+---
+title: "R4SUB and pharmaverse"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{R4SUB and pharmaverse}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+```
+
+pharmaverse builds submissions. R4SUB scores whether they are ready to file.
+
+The two fit together cleanly because they sit at different points in the same
+pipeline. A team uses admiral to derive ADaM, metacore to hold the
+specification, and xportr to write compliant transport files. R4SUB takes what
+those tools produce and answers a separate question: is this package ready to go
+to a regulator, and if not, what is holding it back.
+
+The handoff between the two worlds is the R4SUB evidence table. Anything that can
+describe a dataset or a check can write evidence rows, and everything downstream
+scores from there. This article shows the three main integration points.
+
+```{r libs, message = FALSE}
+library(r4subscore)
+library(r4subtrace)
+library(r4subdata)
+```
+
+## admiral to R4SUB
+
+admiral derives ADaM datasets. R4SUB reads the shape of those datasets and their
+mapping back to SDTM to score traceability and usability.
+
+A typical admiral step looks like this. It is shown for context and is not run
+here, because it needs the admiral toolchain:
+
+```{r admiral-derive, eval = FALSE}
+library(admiral)
+library(pharmaversesdtm)
+
+adsl <- pharmaversesdtm::dm |>
+  derive_vars_merged(
+    dataset_add = pharmaversesdtm::ex,
+    new_vars = exprs(TRTSDT = convert_dtc_to_dt(EXSTDTC)),
+    by_vars = exprs(USUBJID)
+  )
+```
+
+What R4SUB needs from the result is metadata: the variables, their labels, and
+how they map to source. Once you have that, the readiness side is ordinary
+R4SUB. The example metadata in `r4subdata` has exactly the shape admiral output
+produces once you extract its variable list.
+
+```{r admiral-score}
+tm <- build_trace_model(adam_metadata, sdtm_metadata, mapping = trace_mapping)
+ctx <- r4subcore::r4sub_run_context(study_id = "CDISCPILOT01",
+                                    environment = "UAT")
+trace_ev <- trace_model_to_evidence(tm, ctx = ctx)
+trace_indicator_scores(trace_ev)
+```
+
+The admiral-derived datasets go in; traceability coverage comes out, ready to
+feed the Trace pillar of the Submission Confidence Index. The `r4subpharma`
+package provides adapters that go straight from metacore and admiral objects to
+this evidence, so in practice you rarely assemble the metadata by hand.
+
+## xportr to R4SUB
+
+xportr applies SAS transport metadata to a data frame: variable labels, types,
+lengths, and formats, taken from the specification. That same metadata is what
+the Quality and Usability pillars read.
+
+The xportr step, shown for context:
+
+```{r xportr, eval = FALSE}
+library(xportr)
+
+adsl_xpt <- adsl |>
+  xportr_type(spec) |>
+  xportr_length(spec) |>
+  xportr_label(spec) |>
+  xportr_format(spec)
+```
+
+After xportr runs, the variable attributes are exactly the columns R4SUB checks:
+`label`, `type`, `length`, and `format`. The example ADaM metadata carries those
+already, so the usability read is a direct call.
+
+```{r xportr-score, message = FALSE}
+library(r4subusability)
+
+# xportr output described as metadata: label, type, length, format
+meta <- adam_metadata
+meta$origin <- ifelse(is.na(meta$format), "Derived", "Predecessor")
+
+usab_ev <- usability_indicators(meta, assets = c("define.xml"), ctx = ctx)
+usability_summary(usab_ev)
+```
+
+Labels and types that xportr populated become passing usability checks. Anything
+xportr could not fill from the spec shows up as a gap, which is precisely the
+signal a reviewer would raise.
+
+## riskmetric and r4subrisk
+
+riskmetric and r4subrisk both have "risk" in the name, and they answer opposite
+halves of the same worry.
+
+riskmetric scores the R packages you build with: is admiral, or your internal
+derivation package, mature and well tested enough to depend on? That is tooling
+risk, and it is shown here for context:
+
+```{r riskmetric, eval = FALSE}
+library(riskmetric)
+
+pkg_ref("admiral") |>
+  pkg_assess() |>
+  pkg_score()
+```
+
+r4subrisk scores the submission itself: given the datasets and findings, how
+risky is this package to file? That is deliverable risk, computed with FMEA.
+
+```{r r4subrisk-score, message = FALSE}
+library(r4subrisk)
+
+rr <- create_risk_register(risk_register_pharma)
+compute_risk_scores(rr)$overall_risk_score
+```
+
+The two are complementary. Use riskmetric to decide the tools are trustworthy,
+then use r4subrisk to score whether the thing they produced is ready. One vets
+the factory, the other inspects the product.
+
+## Where R4SUB fits
+
+| Stage | pharmaverse | R4SUB |
+|---|---|---|
+| Build ADaM | admiral, metacore | reads the result |
+| Write transport files | xportr | reads label, type, length, format |
+| Vet the tooling | riskmetric | assumes trustworthy tools |
+| Score the submission | not the goal | evidence, SCI, risk, traceability |
+
+pharmaverse gets the datasets built and compliant. R4SUB takes it from there and
+turns "we think it is ready" into a number you can defend.
