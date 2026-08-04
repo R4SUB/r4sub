@@ -11,7 +11,8 @@ test_that("r4sub_packages has expected columns", {
 test_that("r4sub_packages lists all ecosystem packages", {
   result <- r4sub_packages()
   expected <- c("r4sub", "r4subcore", "r4subtrace", "r4subscore",
-                "r4subrisk", "r4subdata", "r4subprofile", "r4subui")
+                "r4subrisk", "r4subdata", "r4subprofile", "r4subusability",
+                "r4subui")
   expect_true(all(expected %in% result$package))
 })
 
