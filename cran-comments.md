@@ -1,26 +1,26 @@
-## Submission notes
+## Submission
 
-This is a meta-package in the style of the 'tidyverse' package. Its sole
-purpose is to install and load the R4SUB (R for Regulatory Submission)
-ecosystem in one call. All packages listed in `Depends` are available on CRAN:
-r4subcore, r4subdata, r4subprofile, r4subrisk, r4subscore, r4subtrace.
+This is an update of the r4sub meta-package from 0.1.0 (on CRAN) to 0.2.0. In the
+style of the 'tidyverse' package, its purpose is to install and attach the R4SUB
+(Ready for Submission) ecosystem in one call. This release attaches
+r4subusability as a core package and adds a pharmaverse positioning vignette and
+community documentation. See NEWS.md.
 
----
+Note on ordering: r4sub now imports r4subusability, so this update should be
+submitted only after r4subusability is available on CRAN.
 
 ## Test environments
 
-* local: Windows 11 x64, R 4.5.2
-* GitHub Actions: ubuntu-latest, R release
-* GitHub Actions: windows-latest, R release
+* local: Windows 11 x64, R 4.5.x
+* GitHub Actions: ubuntu-latest, windows-latest, macos-latest (R release)
 
 ## R CMD check results
 
 0 errors | 0 warnings | 1 note
 
-NOTE: "Depends: includes the non-default packages..."
-This is expected and intentional for a meta-package. The behaviour is
-identical to the 'tidyverse' package on CRAN.
+The note is the expected "Depends/Imports includes non-default packages" note
+for a meta-package, identical in nature to the 'tidyverse' package on CRAN.
 
-## Downstream dependencies
+## Reverse dependencies
 
-None.
+None. r4sub is the top of the ecosystem and nothing depends on it.

@@ -1,0 +1,15 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+^LICENSE\.md$
+^\.github$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
+^cran-comments\.md$
+^CRAN-SUBMISSION\.md$
+^CONTRIBUTING\.md$
+^CODE_OF_CONDUCT\.md$
+^proposal$
+^\.gitignore$
+^\.claude$
+^CLAUDE\.md$
