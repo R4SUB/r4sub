@@ -110,6 +110,12 @@ library(r4sub)
 - End-to-end walkthrough: [vignette](https://r4sub.github.io/r4sub/articles/end-to-end.html)
 - Issues and feature requests: <https://github.com/R4SUB/r4sub/issues>
 
+## Maintained by
+
+R4SUB is part of the open-source work of
+[TechWorksLab](https://techworkslab.com) - clinical programming and regulatory
+submissions. Maintainer: Pawan Rama Mali.
+
 ## License
 
 MIT © Pawan Rama Mali. See [LICENSE](LICENSE).
