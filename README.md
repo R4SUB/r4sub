@@ -119,3 +119,10 @@ submissions. Maintainer: Pawan Rama Mali.
 ## License
 
 MIT © Pawan Rama Mali. See [LICENSE](LICENSE).
+
+## Further reading
+
+Background on the ideas behind R4SUB, from TECHWORKSLAB:
+
+- [Submission readiness as a number, not a meeting](https://techworkslab.com/insights-submission-confidence-index)
+- [More R4SUB articles on the TECHWORKSLAB blog](https://techworkslab.com/insights)
