@@ -1,4 +1,4 @@
-# CRAN submission bundle — R4SUB ecosystem
+# CRAN submission bundle - R4SUB ecosystem
 
 This is the working checklist for submitting the R4SUB ecosystem to CRAN. It is
 not part of the package (it is listed in `.Rbuildignore`). Nothing here submits
@@ -27,26 +27,26 @@ CRAN requires every package in `Imports`/`Depends` to already be on CRAN, so the
 ecosystem must go bottom-up. Submit a wave, wait for each package to be accepted
 and appear on CRAN, then start the next wave.
 
-**Wave 1 — foundation (no ecosystem imports)**
+**Wave 1 - foundation (no ecosystem imports)**
 1. r4subcore 0.2.1
 2. r4subdata 0.1.3
 
 Both are self-contained. r4subcore is imported by almost everything else, so it
 must land first.
 
-**Wave 2 — import r4subcore only**
+**Wave 2 - import r4subcore only**
 3. r4subscore 0.2.1
 4. r4subtrace 0.2.1
 5. r4subrisk 0.2.0
 6. r4subprofile 0.2.0
 7. r4subusability 0.2.0 (first submission)
 
-**Wave 3 — import several ecosystem packages**
+**Wave 3 - import several ecosystem packages**
 8. r4subpharma 0.1.0 (imports r4subcore; suggests r4subscore, r4subprofile)
 9. r4subui 0.1.0 (imports r4subcore, r4subscore, r4subtrace, r4subprofile)
 
-**Wave 4 — the meta-package (imports the six core packages)**
-10. r4sub 0.2.0 — imports r4subusability, so it can only go once
+**Wave 4 - the meta-package (imports the six core packages)**
+10. r4sub 0.2.0 - imports r4subusability, so it can only go once
     r4subusability (wave 2) is on CRAN.
 
 ## Reverse-dependency coordination

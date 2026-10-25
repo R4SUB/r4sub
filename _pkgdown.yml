@@ -18,7 +18,7 @@ navbar:
       aria-label: GitHub
 
 home:
-  title: "r4sub — Ready for Submission"
+  title: "r4sub: Ready for Submission"
   description: >
     Meta-package that installs and loads the complete R4SUB (Ready for
     Submission) ecosystem: r4subcore, r4subdata, r4subprofile, r4subrisk,

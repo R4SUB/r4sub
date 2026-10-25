@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-This vignette walks through the complete R4SUB workflow — from loading evidence
+This vignette walks through the complete R4SUB workflow - from loading evidence
 to a regulatory-calibrated Submission Confidence Index (SCI) and decision band.
 
 ## 1. Load the ecosystem
@@ -216,7 +216,7 @@ abline(v = c(70, 85), lty = 2, col = "#888888")
 ## 10. Ingesting real submission artifacts
 
 The steps above used packaged demo data. In practice you point r4subcore
-parsers directly at the files on disk — no manual preparation needed.
+parsers directly at the files on disk - no manual preparation needed.
 
 ### Define-XML
 
@@ -273,7 +273,7 @@ r4sub_app(evidence = evidence_pharma)
 The dashboard opens in your browser with eight tabs:
 **Overview · Evidence · Indicators · Pillars · Sensitivity · Risk · Traceability · Authority**
 
-## Summary — demo data workflow
+## Summary - demo data workflow
 
 ```{r summary-table, echo = FALSE}
 n_critical <- sum(rr$risk_level == "critical", na.rm = TRUE)
