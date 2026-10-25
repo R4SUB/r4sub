@@ -1,6 +1,6 @@
 Package: r4sub
 Title: Easily Install and Load the R4SUB Ecosystem
-Version: 0.2.0
+Version: 0.2.1
 Authors@R:
     person("Pawan Rama", "Mali", email = "prm@outlook.in",
            role = c("aut", "cre", "cph"),

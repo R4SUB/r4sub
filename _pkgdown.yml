@@ -29,6 +29,7 @@ articles:
     navbar: ~
     contents:
       - end-to-end
+      - r4sub-and-pharmaverse
 
 reference:
   - title: "Ecosystem"

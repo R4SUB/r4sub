@@ -1,13 +1,16 @@
 ## Submission
 
-This is an update of the r4sub meta-package from 0.1.0 (on CRAN) to 0.2.0. In the
+This is an update of the r4sub meta-package from 0.1.0 (on CRAN) to 0.2.1. In the
 style of the 'tidyverse' package, its purpose is to install and attach the R4SUB
 (Ready for Submission) ecosystem in one call. This release attaches
-r4subusability as a core package and adds a pharmaverse positioning vignette and
-community documentation. See NEWS.md.
+r4subusability as a core package, adds a pharmaverse positioning vignette and
+community documentation, and repairs the documentation-site build. See NEWS.md.
 
-Note on ordering: r4sub now imports r4subusability, so this update should be
-submitted only after r4subusability is available on CRAN.
+Note on ordering: r4sub imports r4subusability and suggests r4subui, neither of
+which is on CRAN yet, so this update must be submitted only after both
+r4subusability and r4subui are available on CRAN. Until then R CMD check reports
+a WARNING that these dependencies are not in mainstream repositories; it clears
+once they are on CRAN.
 
 ## Test environments
 
@@ -16,10 +19,14 @@ submitted only after r4subusability is available on CRAN.
 
 ## R CMD check results
 
-0 errors | 0 warnings | 1 note
+Checked today, before r4subusability and r4subui are on CRAN: 1 warning | 1 note.
 
-The note is the expected "Depends/Imports includes non-default packages" note
-for a meta-package, identical in nature to the 'tidyverse' package on CRAN.
+* The warning is the "dependencies not in mainstream repositories" warning for
+  r4subusability (Depends) and r4subui (Suggests), described under Submission
+  above. It clears once both are on CRAN, which is the required submission order
+  for this package, so at submission the result is 0 errors | 0 warnings | 1 note.
+* The note is the expected "Depends/Imports includes non-default packages" note
+  for a meta-package, identical in nature to the 'tidyverse' package on CRAN.
 
 ## Reverse dependencies
 
