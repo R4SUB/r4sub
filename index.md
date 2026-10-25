@@ -33,13 +33,14 @@ pak::pak("R4SUB/r4sub")
 ``` r
 
 library(r4sub)
-#> -- Attaching R4SUB packages (r4sub 0.1.0) ------------------------------
-#>   r4subcore    0.1.2
-#>   r4subtrace   0.1.1
-#>   r4subscore   0.1.1
-#>   r4subrisk    0.1.1
-#>   r4subdata    0.1.2
-#>   r4subprofile 0.1.1
+#> -- Attaching R4SUB packages (r4sub 0.2.0) ------------------------------
+#>   r4subcore      0.1.2
+#>   r4subtrace     0.1.1
+#>   r4subscore     0.1.1
+#>   r4subrisk      0.1.1
+#>   r4subdata      0.1.2
+#>   r4subprofile   0.1.1
+#>   r4subusability 0.1.0
 
 # A worked example: load evidence -> score -> summarise
 data(evidence_pharma)                                # r4subdata
@@ -62,11 +63,11 @@ traceability, and build the dashboard.
 | [r4subrisk](https://github.com/R4SUB/r4subrisk) | FMEA-based risk quantification | ✅ |
 | [r4subdata](https://github.com/R4SUB/r4subdata) | Example datasets for demos and testing | ✅ |
 | [r4subprofile](https://github.com/R4SUB/r4subprofile) | Regulatory submission profiles | ✅ |
-| [r4subusability](https://github.com/R4SUB/r4subusability) | Usability indicators (label quality, Define-XML, annotations) | Install separately |
+| [r4subusability](https://github.com/R4SUB/r4subusability) | Usability indicators (label quality, Define-XML, annotations) | ✅ |
 | [r4subui](https://github.com/R4SUB/r4subui) | Interactive Shiny dashboard | Install separately |
 
 [`core_packages()`](https://r4sub.github.io/r4sub/reference/core_packages.md)
-returns the six packages that are auto-attached.
+returns the seven packages that are auto-attached.
 
 ## Ecosystem utilities
 
@@ -117,7 +118,22 @@ library(r4sub)
   [vignette](https://r4sub.github.io/r4sub/articles/end-to-end.html)
 - Issues and feature requests: <https://github.com/R4SUB/r4sub/issues>
 
+## Maintained by
+
+R4SUB is part of the open-source work of
+[TechWorksLab](https://techworkslab.com) - clinical programming and
+regulatory submissions. Maintainer: Pawan Rama Mali.
+
 ## License
 
 MIT © Pawan Rama Mali. See
 [LICENSE](https://r4sub.github.io/r4sub/LICENSE).
+
+## Further reading
+
+Background on the ideas behind R4SUB, from TECHWORKSLAB:
+
+- [Submission readiness as a number, not a
+  meeting](https://techworkslab.com/insights-submission-confidence-index)
+- [More R4SUB articles on the TECHWORKSLAB
+  blog](https://techworkslab.com/insights)

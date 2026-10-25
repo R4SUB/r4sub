@@ -17,6 +17,6 @@ A character vector of package names.
 
 ``` r
 core_packages()
-#> [1] "r4subcore"    "r4subtrace"   "r4subscore"   "r4subrisk"    "r4subdata"   
-#> [6] "r4subprofile"
+#> [1] "r4subcore"      "r4subtrace"     "r4subscore"     "r4subrisk"     
+#> [5] "r4subdata"      "r4subprofile"   "r4subusability"
 ```

@@ -1,6 +1,6 @@
 # End-to-End: From Evidence to Submission Decision
 
-This vignette walks through the complete R4SUB workflow — from loading
+This vignette walks through the complete R4SUB workflow - from loading
 evidence to a regulatory-calibrated Submission Confidence Index (SCI)
 and decision band.
 
@@ -9,13 +9,14 @@ and decision band.
 ``` r
 
 library(r4sub)
-#> -- Attaching R4SUB packages (r4sub 0.1.0) ------------------------------
-#>   r4subcore    0.1.0
-#>   r4subtrace   0.1.0
-#>   r4subscore   0.1.0
-#>   r4subrisk    0.1.0
-#>   r4subdata    0.1.1
-#>   r4subprofile 0.1.0
+#> -- Attaching R4SUB packages (r4sub 0.2.1) ------------------------------
+#>   r4subcore      0.3.1
+#>   r4subtrace     0.3.1
+#>   r4subscore     0.4.1
+#>   r4subrisk      0.3.1
+#>   r4subdata      0.1.4
+#>   r4subprofile   0.3.1
+#>   r4subusability 0.2.1
 library(r4subdata)
 ```
 
@@ -396,7 +397,7 @@ data(sdtm_metadata)
 data(trace_mapping)
 
 ctx      <- r4sub_run_context(study_id = "CDISCPILOT01", environment = "DEV")
-#> ℹ Run context created: "R4S-20260804130547-wl4dieex"
+#> ℹ Run context created: "R4S-20261025204604-wl4dieex"
 tm       <- build_trace_model(adam_metadata, sdtm_metadata, trace_mapping)
 ev_trace <- trace_model_to_evidence(tm, ctx = ctx)
 #> ✔ Evidence table created: 47 rows
@@ -449,13 +450,14 @@ SCI sensitivity to pillar weight variations
 ## 10. Ingesting real submission artifacts
 
 The steps above used packaged demo data. In practice you point r4subcore
-parsers directly at the files on disk — no manual preparation needed.
+parsers directly at the files on disk - no manual preparation needed.
 
 ### Define-XML
 
-`define_xml_to_evidence()` reads a Define-XML 2.0/2.1 file and scores
-dataset labels, variable documentation, and derivation completeness
-(indicators Q-DEFINE-001 through Q-DEFINE-003).
+[`define_xml_to_evidence()`](https://r4sub.github.io/r4subcore/reference/define_xml_to_evidence.html)
+reads a Define-XML 2.0/2.1 file and scores dataset labels, variable
+documentation, and derivation completeness (indicators Q-DEFINE-001
+through Q-DEFINE-003).
 
 ``` r
 
@@ -473,7 +475,7 @@ compute_sci(pillar_scores_def)
 
 Export the issues list from Pinnacle 21 Enterprise as CSV, then pass the
 data frame to
-[`p21_to_evidence()`](https://rdrr.io/pkg/r4subcore/man/p21_to_evidence.html).
+[`p21_to_evidence()`](https://r4sub.github.io/r4subcore/reference/p21_to_evidence.html).
 Column names are detected case-insensitively (Rule / Rule ID, Severity,
 Dataset, Variable, Status / Result).
 
@@ -486,7 +488,7 @@ ev_p21  <- p21_to_evidence(p21_raw, ctx)
 ### Combining sources
 
 Evidence from multiple parsers is merged with
-[`bind_evidence()`](https://rdrr.io/pkg/r4subcore/man/bind_evidence.html)
+[`bind_evidence()`](https://r4sub.github.io/r4subcore/reference/bind_evidence.html)
 before scoring:
 
 ``` r
@@ -513,7 +515,7 @@ The dashboard opens in your browser with eight tabs: **Overview ·
 Evidence · Indicators · Pillars · Sensitivity · Risk · Traceability ·
 Authority**
 
-## Summary — demo data workflow
+## Summary - demo data workflow
 
 | Step      | Package      | Output                               |
 |:----------|:-------------|:-------------------------------------|

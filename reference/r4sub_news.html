@@ -9,7 +9,7 @@ Useful for tracking what has changed across the ecosystem after updating."></hea
 
     <a class="navbar-brand me-2" href="../index.html">r4sub</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -21,6 +21,7 @@ Useful for tracking what has changed across the ecosystem after updating."></hea
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/end-to-end.html">End-to-End: From Evidence to Submission Decision</a></li>
+    <li><a class="dropdown-item" href="../articles/r4sub-and-pharmaverse.html">R4SUB and pharmaverse</a></li>
   </ul></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
@@ -69,35 +70,500 @@ console.</p>
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">r4sub_news</span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> No NEWS available for <span style="color: #0000BB;">r4subcore</span>.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">r4subcore</span> ──</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                         Changes in version 0.3.1                        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Metadata and documentation polish for CRAN submission; no</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     user-facing changes.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                         Changes in version 0.3.0                        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Add evidence_diff(), which compares two evidence tables and reports</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     what changed between them: which findings were added, removed, or</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     changed, and whether each change made the submission better or</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     worse. Rows are matched on the indicator and asset, duplicate keys</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     collapse to the worst row, and the result is ordered with</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     regressions first so a team sees what to act on. This turns the</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     evidence table into something you can track run over run, and it is</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     the raw material behind higher-level trend views such as sci_diff().</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                         Changes in version 0.2.1                        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - hash_id() now hashes in memory with rlang::hash() instead of writing</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     a temporary file and calling tools::md5sum on every call. The result</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     is the same shape (a 32-character hex string, deterministic) but</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     roughly three orders of magnitude faster, which removes the main</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     bottleneck when building a trace model or generating identifiers for</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     a large submission. The exact hash values change; they are opaque</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     identifiers, not a persisted contract.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Add check_define_consistency() and define_variables(). The first</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     compares the variables declared in Define-XML against the variables</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     actually present in the datasets and emits evidence for each: a</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     match, a variable documented but absent from the data, or a variable</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     present but not documented. Drift between Define-XML and the data is</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     a common submission problem, and this makes it a scored quality</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     indicator. The second extracts the dataset and variable pairs from a</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     Define-XML file.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                         Changes in version 0.2.0                        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Add read_p21_report(), which loads a Pinnacle 21 validation report</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     from disk (CSV natively, Excel through the optional readxl package)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     ready for p21_to_evidence(). A team can now go from the report</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     Pinnacle 21 already produces to scored evidence without</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     hand-building a table.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - canon_severity() now recognizes "notice", the severity Pinnacle 21</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     uses for its lowest level, mapping it onto info.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - The evidence table now carries a schema version. as_evidence()</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     stamps it, evidence_schema_version() reports the current version or</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     the version of a given table, and migrate_evidence() upgrades a</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     table written by an older release. validate_evidence() tolerates an</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     unstamped table but refuses an unknown or newer version, so a table</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     written by a future release cannot be silently mis-scored.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Fix import_evidence(): a CSV or JSON round-trip could leave an</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     all-NA character column (for example source_version) typed as</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     logical, which then failed validation. Every schema column is now</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     coerced back to its declared type on import.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Add evidence_schema_spec(), which publishes the evidence schema as a</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     tidy table (column, type, required, allowed values, description) for</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     use as a data dictionary or reference.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Add vignette: "The R4SUB Evidence Schema", the formal specification</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     of the evidence table shared across the ecosystem.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Add adrg_to_evidence() and adrg_sections() for Analysis Data</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     Reviewer's Guide coverage. Given a structured summary of which</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     standard ADRG sections a guide contains, this emits usability</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     evidence: missing required sections fail, missing recommended</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     sections warn. The same machinery covers the SDRG via source_name.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Add evidence_sources(), a reference table of supported and planned</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     evidence sources with their format, pillar, and entry point.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Harden define_xml_to_evidence() for real-world Define-XML</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     variability. It now matches elements by local name, so it reads</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     files regardless of how they mix the ODM and def: namespaces (a</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     plain //ItemGroupDef query silently missed namespace-prefixed</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     elements). Derivations are resolved from a referenced MethodDef when</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     the Origin carries no inline text, missing optional elements are</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     tolerated, and a partially parseable file now returns an informative</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     warning.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Clarified the package DESCRIPTION: "R4SUB" expands to "Ready for</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     Submission" (previously "R for Regulatory Submission", inconsistent</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     with the rest of the ecosystem).</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                         Changes in version 0.1.2                        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - define_xml_to_evidence(): Parse Define-XML 2.0/2.1 files into</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     evidence, emitting Q-DEFINE-001 (dataset present), Q-DEFINE-002</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     (variable documented), and Q-DEFINE-003 (derivation present)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     indicators.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - export_evidence() / import_evidence(): Save and reload validated</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     evidence tables in CSV, RDS, or JSON format with metadata</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     attributes.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                         Changes in version 0.1.1                        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Added ORCID for package author in Authors@R.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Added r4subdata to Suggests - the companion example-data package is</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     now on CRAN.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                         Changes in version 0.1.0                        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Initial CRAN release.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">r4subtrace</span> ──</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                         Changes in version 0.3.1                        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Complete the pkgdown reference index so the documentation site</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     builds, and polish metadata for CRAN.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                         Changes in version 0.3.0                        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Add trace_impact(), impact analysis for a changed source variable.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     Given a variable that is about to change, it walks the derivation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     graph in reverse and returns every ADaM variable that derives from</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     it, directly or through a chain, each with its distance from the</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     change and a readable path back to it. This is the question a data</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     team asks before editing a source: what breaks downstream. Circular</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     references are handled and multi-step chains are followed through</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     adam_derivations, the same input trace_chains() uses.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                         Changes in version 0.2.1                        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Add trace_problems(), a focused view of just the traceability issues</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     worth acting on: variables that are not traced to the required</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     level, and, when a derivation table is supplied, chains that never</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     reach SDTM, that are circular, or that were cut off at the depth</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     limit. On a large submission this is what a team consumes rather</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     than the full per-variable coverage table. The engine is verified on</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     a 10,000-variable synthetic model.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                         Changes in version 0.2.0                        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Add export_traceability_report() and traceability_coverage(), which</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     summarize traceability coverage per ADaM dataset (percent traced,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     untraced variables listed) with an overall summary row, and export</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     the table as a data.frame, CSV, or Excel file for ADRG appendices.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Add trace_chains(), which follows multi-step derivation chains back</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     to source (ADaM derived from ADaM derived from SDTM), reports the</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     depth and whether each variable is grounded in SDTM, caps the walk</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     with trace_depth, and detects circular references. Add</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     plot_trace_graph() to draw the derivation graph with igraph.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Add vignette: "Case study: tracing ADaM back to SDTM", a worked</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     walkthrough building a trace model from the example CDISC pilot</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     metadata in r4subdata, finding orphan variables, and reading the</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     coverage indicators.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Clarified the package DESCRIPTION: "R4SUB" expands to "Ready for</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     Submission" (previously "R for Regulatory Submission", inconsistent</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     with the rest of the ecosystem).</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                         Changes in version 0.1.1                        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Add vignette: "Traceability Analysis with r4subtrace" covering</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     build_trace_model(), compute_trace_levels(),</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     trace_indicator_scores(), and orphan variable detection.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                         Changes in version 0.1.0                        </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   - Initial CRAN release.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">r4subscore</span> ──</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                         Changes in version 0.4.1                        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Complete the pkgdown reference index so the documentation site</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     builds, and polish metadata for CRAN.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                         Changes in version 0.4.0                        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Add sci_report(), an end-to-end readiness report that composes the</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     SCI, the decision band and its critical gate, the per-pillar</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     breakdown, the findings most worth acting on, and the pillars that</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     offer the biggest improvement into one object with a readable print</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     method. Pass targets for a distance-to-goal section, or a profile</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     configuration as config for an authority-calibrated report. This is</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     the single call that answers "where do we stand and what do we fix</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     next" from an evidence table.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                         Changes in version 0.3.0                        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Add sci_targets() and sci_gap_to_target(). The first records the</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     readiness goal a submission is aiming for, either a band name such</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     as "ready" or a numeric SCI, with optional per-pillar minimums. The</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     second measures how far a scored run is from that goal and, for each</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     pillar, reports the SCI points that closing it would add, ordered so</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     the biggest lever comes first. Where sci_diff() answers "are we</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     moving in the right direction", this answers "how far are we from</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     filing, and what should we fix next".</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                         Changes in version 0.2.1                        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Add sci_snapshot(), sci_diff(), and sci_snapshot_history() for</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     tracking readiness over time. A snapshot records the SCI, band, and</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     pillar and indicator scores for one run under a label; sci_diff()</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     reports what moved between two runs (overall SCI change, band</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     change, per-pillar deltas, and which indicators improved, regressed,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     were added, or removed); and sci_snapshot_history() binds a series</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     into a tidy table for a trend plot. This turns the SCI from a</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     single-run report card into a way to answer whether a submission is</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     on trajectory to file.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                         Changes in version 0.2.0                        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Add a non-compensatory gate to the SCI. An open critical finding</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     (severity critical, result fail) now caps the reported band at</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     conditional by default, so a strong score in one pillar cannot wash</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     out a critical failure in another. The numeric SCI is left</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     unchanged; only the band is capped, and compute_sci() records</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     n_critical, gated, and a gate_reason. The gate is configurable</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     through sci_config_default(gate = ...) and applies automatically</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     through the standard pipeline. The default is a starting point</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     sponsors should calibrate, not validated truth.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Add indicator_contributions(), which breaks a pillar score down into</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     per-indicator contributions, ranks indicators by how many SCI points</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     a fix could recover, and attaches a short remediation hint to each</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     one.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Add sci_what_if(), which recomputes the pillar score and the SCI</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     exactly as if one indicator had a different score, for planning</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     remediation.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Add sci_confidence_interval(), a bootstrap confidence interval for</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     the SCI so a readiness decision can account for measurement noise,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     with a format_sci_ci() helper for the compact SCI = 82.0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     [76.0, 88.0] form and a print method that flags when the interval</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     straddles two decision bands.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Document confidence-interval interpretation in the scoring vignette.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Add vignette: "Case study: scoring a CDISC pilot for submission</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     readiness", a worked walkthrough of the SCI on the example pharma</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     evidence from r4subdata.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Add validation helpers: sci_degradation_curve() records how the SCI</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     responds as passing checks are turned into failures,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     sci_monotone_check() confirms a curve never rises, and</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     conformance_findings() produces an independent severity-weighted</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     finding count for concurrent-validity checks.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Add vignette: "Validating the Submission Confidence Index", covering</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     construct, discriminant, concurrent, and robustness validity, and</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     documenting a calibration finding about how severity discounts</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     passing credit.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Clarified the package DESCRIPTION: "R4SUB" expands to "Ready for</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     Submission" (previously "R for Regulatory Submission", inconsistent</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     with the rest of the ecosystem).</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                         Changes in version 0.1.1                        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Add vignette: "Submission Confidence Index (SCI) Scoring" covering</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     compute_pillar_scores(), compute_sci(), sci_explain(),</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     sci_sensitivity_analysis(), and custom weight configuration.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                         Changes in version 0.1.0                        </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   - Initial CRAN release.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">r4subrisk</span> ──</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                         Changes in version 0.3.1                        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Metadata and documentation polish for CRAN submission; no</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     user-facing changes.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                         Changes in version 0.3.0                        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Add risk_monte_carlo(), which puts uncertainty on the FMEA scores.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     An RPN is built from three integer judgements, so a single number</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     hides how confident the assessment is. The simulation samples each</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     probability, impact, and detectability around its assessed value and</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     reports the distribution of RPN, per risk and for the register as a</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     whole, including a 90% interval and the probability that each risk</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     is actually critical. The random state is set and restored per call</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     when a seed is given, so results are reproducible without disturbing</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     the caller's RNG.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                         Changes in version 0.2.0                        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Add risk_reduction_summary(), which quantifies the risk removed</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     between two registers: total and mean RPN reduction, percentage</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     reduction, and counts of risks reduced, downgraded, added, and</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     resolved.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Add plot_risk_heatmap() and risk_heatmap_data() for the standard</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     FMEA probability by impact heatmap, with an optional interactive</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     plotly version.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Add a pluggable risk-model interface: risk_model() plus the</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     pre-built risk_model_fmea(), risk_model_probability_impact(), and</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     risk_model_ich_q9(). apply_risk_model() scores any set of risks to a</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     normalized 0-100 value so alternative models feed the same Risk</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     pillar.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Add vignette: "Case study: FMEA risk on a pilot submission", a</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     worked before-and-after mitigation walkthrough using the example</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     risk register from r4subdata.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Clarified the package DESCRIPTION: "R4SUB" expands to "Ready for</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     Submission" (previously "R for Regulatory Submission", inconsistent</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     with the rest of the ecosystem).</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                         Changes in version 0.1.1                        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Add vignette: "Risk Management with r4subrisk" covering</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     create_risk_register(), compute_risk_scores(), apply_mitigations(),</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     compare_risk_registers(), and evidence_to_risks() integration.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                         Changes in version 0.1.0                        </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   - Initial CRAN release.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">r4subdata</span> ──</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                         Changes in version 0.1.4                        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Exclude the pkgdown config and site from the build to clear an R CMD</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     check NOTE.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                         Changes in version 0.1.3                        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Clarified the package DESCRIPTION: "R4SUB" expands to "Ready for</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     Submission" (previously "R for Regulatory Submission", inconsistent</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     with the rest of the ecosystem).</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                         Changes in version 0.1.2                        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Added oncology_metadata: ADaM variable-level metadata for a</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     synthetic oncology trial (ADSL, ADRS, ADTTE).</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Added oncology_evidence: 29-row R4SUB evidence table for study</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     ONCO-2025-001, covering all four pillars.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                         Changes in version 0.1.1                        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Fixed version conflict warning on load.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Added ORCID to author metadata.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                         Changes in version 0.1.0                        </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   - Initial CRAN release.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">r4subprofile</span> ──</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                         Changes in version 0.3.1                        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Fix the pkgdown reference index: drop stale print entries and add</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     the rule-pack topics so the site builds.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                         Changes in version 0.3.0                        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Add compare_authorities(), a side-by-side comparison of submission</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     profiles across regulatory authorities: pillar weights, the SCI</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     needed to be ready, minimum coverage, the number of required</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     indicators, and the detectability default. A sponsor filing in more</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     than one region can see how the readiness bar changes between, say,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     the FDA and the EMA without building and reading each profile by</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     hand. Authority names match case-insensitively and the submission</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     type can be chosen per authority.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                         Changes in version 0.2.0                        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Add versioned rule packs: rule_packs() lists the available packs,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     rule_pack() selects one by id (for example "fda-2026.1") with an</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     authority, a version, and an effective date, rule_pack_indicators()</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     returns its indicators, and rule_pack_provenance() returns the</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     identifying fields to record on a scored result so a score can be</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     traced to the exact ruleset that produced it. Each indicator carries</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     a source field for its authoritative citation; the built-in packs</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     ship these as NA (pending entry from a controlled reference list</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     rather than filled with unverified section numbers) and they can be</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     supplied through the sources argument.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                         Changes in version 0.1.1                        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Add vignette: "Regulatory Authority Profiles" covering</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     submission_profile(), profile_summary(), validate_against_profile(),</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     and authority weight comparisons.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                         Changes in version 0.1.0                        </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   - Initial CRAN release.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">r4subusability</span> ──</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                         Changes in version 0.2.1                        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Fix the pkgdown workflow so it resolves ecosystem dependencies, and</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     polish metadata for CRAN.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                         Changes in version 0.2.0                        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Add vignette: "Case study: reviewer experience from ADaM metadata",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     which builds a Define-style view from the example CDISC pilot</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     metadata in r4subdata and measures its usability.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Clarified the package DESCRIPTION: "R4SUB" expands to "Ready for</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     Submission" (previously "R for Regulatory Submission", inconsistent</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     with the rest of the ecosystem).</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                         Changes in version 0.1.0                        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Initial release.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - usability_config_default(): default configuration for usability</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     assessments.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - assess_label_quality(): check variable label presence and length</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     (U-001).</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - assess_define_completeness(): check Define-XML origin and derivation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     fields (U-002).</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - assess_annotation_coverage(): check proportion of derived variables</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     annotated (U-003).</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - assess_reviewer_guide(): check reviewer guide presence in submission</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     package (U-004).</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - usability_indicators(): run all four assessments in one call.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - usability_summary() and print.usability_result(): summarise and</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     display results.</span>
 <span class="r-in"><span><span class="fu">r4sub_news</span><span class="op">(</span><span class="st">"r4subcore"</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> No NEWS available for <span style="color: #0000BB;">r4subcore</span>.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">r4subcore</span> ──</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                         Changes in version 0.3.1                        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Metadata and documentation polish for CRAN submission; no</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     user-facing changes.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                         Changes in version 0.3.0                        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Add evidence_diff(), which compares two evidence tables and reports</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     what changed between them: which findings were added, removed, or</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     changed, and whether each change made the submission better or</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     worse. Rows are matched on the indicator and asset, duplicate keys</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     collapse to the worst row, and the result is ordered with</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     regressions first so a team sees what to act on. This turns the</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     evidence table into something you can track run over run, and it is</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     the raw material behind higher-level trend views such as sci_diff().</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                         Changes in version 0.2.1                        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - hash_id() now hashes in memory with rlang::hash() instead of writing</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     a temporary file and calling tools::md5sum on every call. The result</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     is the same shape (a 32-character hex string, deterministic) but</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     roughly three orders of magnitude faster, which removes the main</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     bottleneck when building a trace model or generating identifiers for</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     a large submission. The exact hash values change; they are opaque</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     identifiers, not a persisted contract.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Add check_define_consistency() and define_variables(). The first</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     compares the variables declared in Define-XML against the variables</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     actually present in the datasets and emits evidence for each: a</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     match, a variable documented but absent from the data, or a variable</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     present but not documented. Drift between Define-XML and the data is</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     a common submission problem, and this makes it a scored quality</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     indicator. The second extracts the dataset and variable pairs from a</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     Define-XML file.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                         Changes in version 0.2.0                        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Add read_p21_report(), which loads a Pinnacle 21 validation report</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     from disk (CSV natively, Excel through the optional readxl package)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     ready for p21_to_evidence(). A team can now go from the report</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     Pinnacle 21 already produces to scored evidence without</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     hand-building a table.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - canon_severity() now recognizes "notice", the severity Pinnacle 21</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     uses for its lowest level, mapping it onto info.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - The evidence table now carries a schema version. as_evidence()</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     stamps it, evidence_schema_version() reports the current version or</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     the version of a given table, and migrate_evidence() upgrades a</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     table written by an older release. validate_evidence() tolerates an</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     unstamped table but refuses an unknown or newer version, so a table</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     written by a future release cannot be silently mis-scored.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Fix import_evidence(): a CSV or JSON round-trip could leave an</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     all-NA character column (for example source_version) typed as</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     logical, which then failed validation. Every schema column is now</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     coerced back to its declared type on import.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Add evidence_schema_spec(), which publishes the evidence schema as a</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     tidy table (column, type, required, allowed values, description) for</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     use as a data dictionary or reference.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Add vignette: "The R4SUB Evidence Schema", the formal specification</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     of the evidence table shared across the ecosystem.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Add adrg_to_evidence() and adrg_sections() for Analysis Data</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     Reviewer's Guide coverage. Given a structured summary of which</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     standard ADRG sections a guide contains, this emits usability</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     evidence: missing required sections fail, missing recommended</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     sections warn. The same machinery covers the SDRG via source_name.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Add evidence_sources(), a reference table of supported and planned</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     evidence sources with their format, pillar, and entry point.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Harden define_xml_to_evidence() for real-world Define-XML</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     variability. It now matches elements by local name, so it reads</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     files regardless of how they mix the ODM and def: namespaces (a</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     plain //ItemGroupDef query silently missed namespace-prefixed</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     elements). Derivations are resolved from a referenced MethodDef when</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     the Origin carries no inline text, missing optional elements are</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     tolerated, and a partially parseable file now returns an informative</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     warning.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Clarified the package DESCRIPTION: "R4SUB" expands to "Ready for</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     Submission" (previously "R for Regulatory Submission", inconsistent</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     with the rest of the ecosystem).</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                         Changes in version 0.1.2                        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - define_xml_to_evidence(): Parse Define-XML 2.0/2.1 files into</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     evidence, emitting Q-DEFINE-001 (dataset present), Q-DEFINE-002</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     (variable documented), and Q-DEFINE-003 (derivation present)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     indicators.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - export_evidence() / import_evidence(): Save and reload validated</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     evidence tables in CSV, RDS, or JSON format with metadata</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     attributes.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                         Changes in version 0.1.1                        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Added ORCID for package author in Authors@R.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Added r4subdata to Suggests - the companion example-data package is</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     now on CRAN.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                         Changes in version 0.1.0                        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Initial CRAN release.</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

@@ -1,14 +1,16 @@
 # r4sub: Easily Install and Load the R4SUB Ecosystem
 
 The 'r4sub' package is a meta-package that installs and loads core
-packages of the R4SUB (R for Regulatory Submission) clinical submission
+packages of the R4SUB (Ready for Submission) clinical submission
 readiness ecosystem. Loading 'r4sub' attaches 'r4subcore', 'r4subtrace',
-'r4subscore', 'r4subrisk', 'r4subdata', and 'r4subprofile'. The
-dashboard package 'r4subui' is available but not auto-attached.
+'r4subscore', 'r4subrisk', 'r4subdata', 'r4subprofile', and
+'r4subusability'.
 
 ## See also
 
 Useful links:
+
+- <https://r4sub.github.io/r4sub/>
 
 - <https://github.com/R4SUB/r4sub>
 
