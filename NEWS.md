@@ -1,3 +1,7 @@
+# r4sub 0.2.1
+
+- Fix the pkgdown workflow so it resolves every ecosystem dependency, and polish metadata for CRAN.
+
 # r4sub 0.2.0
 
 - `r4subusability` is now a core package: `core_packages()` returns all seven
