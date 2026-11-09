@@ -2,19 +2,48 @@
 % Please edit documentation in R/conflicts.R
 \name{r4sub_conflicts}
 \alias{r4sub_conflicts}
+\alias{format.r4sub_conflicts}
+\alias{print.r4sub_conflicts}
 \title{Show R4SUB Function Conflicts}
 \usage{
 r4sub_conflicts()
+
+\method{format}{r4sub_conflicts}(x, ...)
+
+\method{print}{r4sub_conflicts}(x, ...)
+}
+\arguments{
+\item{x}{An \code{r4sub_conflicts} object, as returned by \code{r4sub_conflicts()}.}
+
+\item{...}{Ignored, for compatibility with the \code{\link[=format]{format()}} and \code{\link[=print]{print()}}
+generics.}
 }
 \value{
-A tibble with columns: \code{func}, \code{r4sub_package}, \code{other_package}.
-Returned invisibly. Prints conflicts if any exist.
+An object of class \code{r4sub_conflicts} (a tibble with columns
+\code{func}, \code{r4sub_package}, \code{other_package}). Returned invisibly. A one-line
+summary of the conflict count is printed when the function is called; the
+full per-conflict report is produced by the \code{print}/\code{format} methods.
 }
 \description{
 Reports any exported function name collisions between attached R4SUB
-packages and other loaded packages.
+packages and other loaded packages. The returned object carries the
+\code{r4sub_conflicts} class, so printing it (or passing it to \code{\link[=format]{format()}})
+renders a readable "pkg::fn overrides other::fn" report in the style of
+the \pkg{conflicted} package.
+}
+\details{
+The underlying object is still a \code{\link[tibble:tibble]{tibble::tibble()}} with columns \code{func},
+\code{r4sub_package}, and \code{other_package}, so it can be filtered, counted, or
+joined like any other data frame. Only its printed representation changes.
 }
 \examples{
-r4sub_conflicts()
+# Detect conflicts in the current session
+conflicts <- r4sub_conflicts()
+
+# Render the full "overrides" report
+print(conflicts)
+
+# The report is also available as a character vector
+format(conflicts)
 
 }
