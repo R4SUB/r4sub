@@ -35,7 +35,7 @@ pak::pak("R4SUB/r4sub")
 
 ```r
 library(r4sub)
-#> -- Attaching R4SUB packages (r4sub 0.2.0) ------------------------------
+#> -- Attaching R4SUB packages (r4sub 0.2.1) ------------------------------
 #>   r4subcore      0.1.2
 #>   r4subtrace     0.1.1
 #>   r4subscore     0.1.1
