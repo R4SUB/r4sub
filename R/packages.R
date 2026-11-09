@@ -13,7 +13,7 @@
 #'
 #' @export
 r4sub_packages <- function(include_self = TRUE) {
-  pkgs <- c(core_packages(), "r4subui")
+  pkgs <- c(core_packages(), optional_packages())
   if (include_self) {
     pkgs <- c("r4sub", pkgs)
   }
