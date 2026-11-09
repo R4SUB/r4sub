@@ -1,5 +1,18 @@
 # Changelog
 
+## r4sub (development version)
+
+- Correct the `r4sub` version shown in the README startup-message
+  example so it matches the current package version.
+- Quieten expected
+  [`utils::citation()`](https://rdrr.io/r/utils/citation.html) “could
+  not determine year” warnings in the
+  [`r4sub_cite()`](https://r4sub.github.io/r4sub/reference/r4sub_cite.md)
+  and
+  [`r4sub_news()`](https://r4sub.github.io/r4sub/reference/r4sub_news.md)
+  tests (these originate from the dependencies’ metadata, not from
+  `r4sub`).
+
 ## r4sub 0.2.1
 
 - Fix the pkgdown workflow so it resolves every ecosystem dependency,

@@ -31,6 +31,18 @@ r4sub_news()
 #> 
 #> ── r4subcore ──
 #> 
+#>                      Changes in version 0.3.1.9000                      
+#> 
+#>   - Fix the "Getting Started" vignette, which still expanded "R4SUB" as
+#>     "R for Regulatory Submission". It now reads "Ready for Submission",
+#>     matching the DESCRIPTION and the rest of the ecosystem (corrected
+#>     in 0.2.0).
+#>   - Add tests for export_evidence() / import_evidence(): the JSON
+#>     round-trip, the traceability attributes on the returned path, the
+#>     missing-file error, and a regression guard for the 0.2.0 fix that
+#>     coerces an all-NA character column back to character on import. No
+#>     change to behavior.
+#> 
 #>                         Changes in version 0.3.1                        
 #> 
 #>   - Metadata and documentation polish for CRAN submission; no
@@ -356,6 +368,10 @@ r4sub_news()
 #> 
 #>   - Fix the pkgdown reference index: drop stale print entries and add
 #>     the rule-pack topics so the site builds.
+#>   - Docs: correct the description of profile_summary() in the vignette
+#>     and the README; it prints a formatted summary and returns the
+#>     profile invisibly, it does not return a tibble. Add
+#>     compare_authorities() to the README function table.
 #> 
 #>                         Changes in version 0.3.0                        
 #> 
@@ -425,6 +441,18 @@ r4sub_news()
 #>     display results.
 r4sub_news("r4subcore")
 #> ── r4subcore ──
+#> 
+#>                      Changes in version 0.3.1.9000                      
+#> 
+#>   - Fix the "Getting Started" vignette, which still expanded "R4SUB" as
+#>     "R for Regulatory Submission". It now reads "Ready for Submission",
+#>     matching the DESCRIPTION and the rest of the ecosystem (corrected
+#>     in 0.2.0).
+#>   - Add tests for export_evidence() / import_evidence(): the JSON
+#>     round-trip, the traceability attributes on the returned path, the
+#>     missing-file error, and a regression guard for the 0.2.0 fix that
+#>     coerces an all-NA character column back to character on import. No
+#>     change to behavior.
 #> 
 #>                         Changes in version 0.3.1                        
 #> 

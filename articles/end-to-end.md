@@ -10,7 +10,7 @@ and decision band.
 
 library(r4sub)
 #> -- Attaching R4SUB packages (r4sub 0.2.1) ------------------------------
-#>   r4subcore      0.3.1
+#>   r4subcore      0.3.1.9000
 #>   r4subtrace     0.3.1
 #>   r4subscore     0.4.1
 #>   r4subrisk      0.3.1
@@ -397,7 +397,7 @@ data(sdtm_metadata)
 data(trace_mapping)
 
 ctx      <- r4sub_run_context(study_id = "CDISCPILOT01", environment = "DEV")
-#> ℹ Run context created: "R4S-20261025204604-wl4dieex"
+#> ℹ Run context created: "R4S-20261109181434-wl4dieex"
 tm       <- build_trace_model(adam_metadata, sdtm_metadata, trace_mapping)
 ev_trace <- trace_model_to_evidence(tm, ctx = ctx)
 #> ✔ Evidence table created: 47 rows
