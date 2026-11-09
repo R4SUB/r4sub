@@ -37,6 +37,7 @@ reference:
       - r4sub_packages
       - core_packages
       - r4sub_status
+      - r4sub_sitrep
   - title: "Information"
     contents:
       - r4sub_news

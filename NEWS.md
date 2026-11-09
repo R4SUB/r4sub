@@ -1,5 +1,14 @@
 # r4sub (development version)
 
+- Add `r4sub_sitrep()`, a one-shot situation report composing your R version
+  and platform, each ecosystem package's installed version and attach status,
+  and the current conflict count. It is a pure composition of existing helpers
+  and performs no network access.
+- Add a formal internal ecosystem registry that tags each package by role
+  (core vs optional). Optional packages (`r4subui`, `r4subpharma`,
+  `r4subrepro`, `r4agent`) are now discoverable through `r4sub_packages()` and
+  `r4sub_status()`. This is a listing change only: the set of packages attached
+  by `library(r4sub)` is unchanged.
 - Correct the `r4sub` version shown in the README startup-message example so it
   matches the current package version.
 - Quieten expected `utils::citation()` "could not determine year" warnings in

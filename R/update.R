@@ -11,7 +11,7 @@
 #'
 #' @export
 r4sub_status <- function() {
-  pkgs <- c("r4sub", core_packages(), "r4subui")
+  pkgs <- c("r4sub", core_packages(), optional_packages())
 
   installed <- vapply(pkgs, function(p) {
     tryCatch(
