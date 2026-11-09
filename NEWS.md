@@ -1,3 +1,11 @@
+# r4sub (development version)
+
+- Correct the `r4sub` version shown in the README startup-message example so it
+  matches the current package version.
+- Quieten expected `utils::citation()` "could not determine year" warnings in
+  the `r4sub_cite()` and `r4sub_news()` tests (these originate from the
+  dependencies' metadata, not from `r4sub`).
+
 # r4sub 0.2.1
 
 - Fix the pkgdown workflow so it resolves every ecosystem dependency, and polish metadata for CRAN.
