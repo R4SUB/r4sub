@@ -19,5 +19,6 @@ console.
 
 ``` r
 r4sub_status()
+#> ! Not installed: r4subpharma, r4subrepro, and r4agent
 #> ✔ 9 R4SUB packages installed.
 ```

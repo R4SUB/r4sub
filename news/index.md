@@ -2,6 +2,31 @@
 
 ## r4sub (development version)
 
+- [`r4sub_conflicts()`](https://r4sub.github.io/r4sub/reference/r4sub_conflicts.md)
+  now returns a classed `r4sub_conflicts` object with
+  [`print()`](https://rdrr.io/r/base/print.html) and
+  [`format()`](https://rdrr.io/r/base/format.html) methods that render a
+  readable “`pkg::fn` overrides `other::fn`” report, in the style of the
+  conflicted package. The object is still a tibble with the same
+  columns, so existing code that inspects it keeps working. A one-line
+  conflict summary can also be shown at attach time by setting
+  `options(r4sub.conflicts = TRUE)`; this is off by default, so the
+  default [`library(r4sub)`](https://r4sub.github.io/r4sub/) startup
+  output and attach set are unchanged.
+- Add
+  [`r4sub_sitrep()`](https://r4sub.github.io/r4sub/reference/r4sub_sitrep.md),
+  a one-shot situation report composing your R version and platform,
+  each ecosystem package’s installed version and attach status, and the
+  current conflict count. It is a pure composition of existing helpers
+  and performs no network access.
+- Add a formal internal ecosystem registry that tags each package by
+  role (core vs optional). Optional packages (`r4subui`, `r4subpharma`,
+  `r4subrepro`, `r4agent`) are now discoverable through
+  [`r4sub_packages()`](https://r4sub.github.io/r4sub/reference/r4sub_packages.md)
+  and
+  [`r4sub_status()`](https://r4sub.github.io/r4sub/reference/r4sub_status.md).
+  This is a listing change only: the set of packages attached by
+  [`library(r4sub)`](https://r4sub.github.io/r4sub/) is unchanged.
 - Correct the `r4sub` version shown in the README startup-message
   example so it matches the current package version.
 - Quieten expected

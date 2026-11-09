@@ -75,6 +75,22 @@ console.</p>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                      Changes in version 0.3.1.9000                      </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Add evidence_delta() and evidence_diff_summary(), which extend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     evidence_diff() reporting without changing its output.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     evidence_delta() appends a signed per-row delta to a diff, scoring</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     each change from the existing result_to_score() and</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     severity_to_weight() primitives as the movement in weighted penalty</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     (positive means the penalty fell). evidence_diff_summary() rolls a</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     diff up into a tidy metric/value frame with the per-category counts</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     and a single net_delta. The net-movement figure is labelled a</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     diagnostic rollup, not the Submission Confidence Index.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Add dataset_variables(), which builds the (dataset, variable) table</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     that check_define_consistency() compares against Define-XML. It</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     reads variable names from a single data frame (with a supplied</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     dataset name), a named list of data frames, or a directory of .rds</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     files (one data frame each); SAS transport .xpt files are read when</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     the optional haven package is installed. It only reads names and</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     emits no scoring or evidence of its own.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   - Fix the "Getting Started" vignette, which still expanded "R4SUB" as</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "R for Regulatory Submission". It now reads "Ready for Submission",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     matching the DESCRIPTION and the rest of the ecosystem (corrected</span>
@@ -486,6 +502,22 @@ console.</p>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                      Changes in version 0.3.1.9000                      </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Add evidence_delta() and evidence_diff_summary(), which extend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     evidence_diff() reporting without changing its output.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     evidence_delta() appends a signed per-row delta to a diff, scoring</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     each change from the existing result_to_score() and</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     severity_to_weight() primitives as the movement in weighted penalty</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     (positive means the penalty fell). evidence_diff_summary() rolls a</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     diff up into a tidy metric/value frame with the per-category counts</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     and a single net_delta. The net-movement figure is labelled a</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     diagnostic rollup, not the Submission Confidence Index.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Add dataset_variables(), which builds the (dataset, variable) table</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     that check_define_consistency() compares against Define-XML. It</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     reads variable names from a single data frame (with a supplied</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     dataset name), a named list of data frames, or a directory of .rds</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     files (one data frame each); SAS transport .xpt files are read when</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     the optional haven package is installed. It only reads names and</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     emits no scoring or evidence of its own.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   - Fix the "Getting Started" vignette, which still expanded "R4SUB" as</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "R for Regulatory Submission". It now reads "Ready for Submission",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     matching the DESCRIPTION and the rest of the ecosystem (corrected</span>

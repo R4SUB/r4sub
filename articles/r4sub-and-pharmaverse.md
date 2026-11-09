@@ -52,7 +52,7 @@ the shape admiral output produces once you extract its variable list.
 tm <- build_trace_model(adam_metadata, sdtm_metadata, mapping = trace_mapping)
 ctx <- r4subcore::r4sub_run_context(study_id = "CDISCPILOT01",
                                     environment = "UAT")
-#> ℹ Run context created: "R4S-20261109181437-wl4dieex"
+#> ℹ Run context created: "R4S-20261109192719-wl4dieex"
 trace_ev <- trace_model_to_evidence(tm, ctx = ctx)
 #> ✔ Evidence table created: 47 rows
 trace_indicator_scores(trace_ev)

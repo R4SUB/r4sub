@@ -8,6 +8,8 @@
   : Core R4SUB packages
 - [`r4sub_status()`](https://r4sub.github.io/r4sub/reference/r4sub_status.md)
   : Check R4SUB Package Installation Status
+- [`r4sub_sitrep()`](https://r4sub.github.io/r4sub/reference/r4sub_sitrep.md)
+  : Situation Report for the R4SUB Ecosystem
 
 ## Information
 
@@ -16,4 +18,6 @@
 - [`r4sub_cite()`](https://r4sub.github.io/r4sub/reference/r4sub_cite.md)
   : Cite the R4SUB Ecosystem
 - [`r4sub_conflicts()`](https://r4sub.github.io/r4sub/reference/r4sub_conflicts.md)
+  [`format(`*`<r4sub_conflicts>`*`)`](https://r4sub.github.io/r4sub/reference/r4sub_conflicts.md)
+  [`print(`*`<r4sub_conflicts>`*`)`](https://r4sub.github.io/r4sub/reference/r4sub_conflicts.md)
   : Show R4SUB Function Conflicts

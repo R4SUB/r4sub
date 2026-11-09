@@ -50,7 +50,7 @@ r4sub_cite()
 #> 
 #>   Mali P (2026). _r4subcore: Evidence Schema, Parsers, and Shared
 #>   Primitives_. R package version 0.3.1.9000, commit
-#>   4c6e7b15bc7bf306a995498e7ad60b455006c703,
+#>   e4b93e14a7f3b2f4d91c641f421e2221ee20ed43,
 #>   <https://github.com/R4SUB/r4subcore>.
 #> 
 #> A BibTeX entry for LaTeX users is
@@ -59,7 +59,7 @@ r4sub_cite()
 #>     title = {r4subcore: Evidence Schema, Parsers, and Shared Primitives},
 #>     author = {Pawan Rama Mali},
 #>     year = {2026},
-#>     note = {R package version 0.3.1.9000, commit 4c6e7b15bc7bf306a995498e7ad60b455006c703},
+#>     note = {R package version 0.3.1.9000, commit e4b93e14a7f3b2f4d91c641f421e2221ee20ed43},
 #>     url = {https://github.com/R4SUB/r4subcore},
 #>   }
 #> ── r4subtrace ──
@@ -68,7 +68,7 @@ r4sub_cite()
 #> 
 #>   Mali P (2026). _r4subtrace: Traceability Engine for Clinical
 #>   Submission Readiness_. R package version 0.3.1, commit
-#>   01b4a06216658dc8178ad31144db7cfe2b720f1c,
+#>   aef62c98ed031b65a80f2cb5dbe3607b94997363,
 #>   <https://github.com/R4SUB/r4subtrace>.
 #> 
 #> A BibTeX entry for LaTeX users is
@@ -77,7 +77,7 @@ r4sub_cite()
 #>     title = {r4subtrace: Traceability Engine for Clinical Submission Readiness},
 #>     author = {Pawan Rama Mali},
 #>     year = {2026},
-#>     note = {R package version 0.3.1, commit 01b4a06216658dc8178ad31144db7cfe2b720f1c},
+#>     note = {R package version 0.3.1, commit aef62c98ed031b65a80f2cb5dbe3607b94997363},
 #>     url = {https://github.com/R4SUB/r4subtrace},
 #>   }
 #> ── r4subscore ──
@@ -86,7 +86,7 @@ r4sub_cite()
 #> 
 #>   Mali P (2026). _r4subscore: Submission Confidence Index Engine_. R
 #>   package version 0.4.1, commit
-#>   ab871ab7bf2014aa4ac90174e00f5c4cb80b81c7,
+#>   82c9c44e0d232c87876aea07fc6cb84916be14f7,
 #>   <https://github.com/R4SUB/r4subscore>.
 #> 
 #> A BibTeX entry for LaTeX users is
@@ -95,7 +95,7 @@ r4sub_cite()
 #>     title = {r4subscore: Submission Confidence Index Engine},
 #>     author = {Pawan Rama Mali},
 #>     year = {2026},
-#>     note = {R package version 0.4.1, commit ab871ab7bf2014aa4ac90174e00f5c4cb80b81c7},
+#>     note = {R package version 0.4.1, commit 82c9c44e0d232c87876aea07fc6cb84916be14f7},
 #>     url = {https://github.com/R4SUB/r4subscore},
 #>   }
 #> ── r4subrisk ──
@@ -104,7 +104,7 @@ r4sub_cite()
 #> 
 #>   Mali P (2026). _r4subrisk: Risk Quantification Engine for Clinical
 #>   Submission Readiness_. R package version 0.3.1, commit
-#>   3b9422f1b622964c3471bccb59e1cad6c273aa7e,
+#>   c55448d02fa6c778e6725993f21cea7836a8ca4f,
 #>   <https://github.com/R4SUB/r4subrisk>.
 #> 
 #> A BibTeX entry for LaTeX users is
@@ -113,7 +113,7 @@ r4sub_cite()
 #>     title = {r4subrisk: Risk Quantification Engine for Clinical Submission Readiness},
 #>     author = {Pawan Rama Mali},
 #>     year = {2026},
-#>     note = {R package version 0.3.1, commit 3b9422f1b622964c3471bccb59e1cad6c273aa7e},
+#>     note = {R package version 0.3.1, commit c55448d02fa6c778e6725993f21cea7836a8ca4f},
 #>     url = {https://github.com/R4SUB/r4subrisk},
 #>   }
 #> ── r4subdata ──
@@ -122,7 +122,7 @@ r4sub_cite()
 #> 
 #>   Mali P (2026). _r4subdata: Example Datasets for Clinical Submission
 #>   Readiness_. R package version 0.1.4, commit
-#>   e15a2b6586448f4503259b66a0fb77d9bb208e59,
+#>   a2565ec960d7fd3a3b32069bc78b8121186b7b7e,
 #>   <https://github.com/R4SUB/r4subdata>.
 #> 
 #> A BibTeX entry for LaTeX users is
@@ -131,7 +131,7 @@ r4sub_cite()
 #>     title = {r4subdata: Example Datasets for Clinical Submission Readiness},
 #>     author = {Pawan Rama Mali},
 #>     year = {2026},
-#>     note = {R package version 0.1.4, commit e15a2b6586448f4503259b66a0fb77d9bb208e59},
+#>     note = {R package version 0.1.4, commit a2565ec960d7fd3a3b32069bc78b8121186b7b7e},
 #>     url = {https://github.com/R4SUB/r4subdata},
 #>   }
 #> ── r4subprofile ──
@@ -140,7 +140,7 @@ r4sub_cite()
 #> 
 #>   Mali P (2026). _r4subprofile: Regulatory Authority Profiles for
 #>   Submission Readiness_. R package version 0.3.1, commit
-#>   e285a5fd80f18b238ec8f0a7b4a9390c663639fd,
+#>   6ac85a2afafc638a3778a34a39ef9f37909ff3ee,
 #>   <https://github.com/R4SUB/r4subprofile>.
 #> 
 #> A BibTeX entry for LaTeX users is
@@ -149,7 +149,7 @@ r4sub_cite()
 #>     title = {r4subprofile: Regulatory Authority Profiles for Submission Readiness},
 #>     author = {Pawan Rama Mali},
 #>     year = {2026},
-#>     note = {R package version 0.3.1, commit e285a5fd80f18b238ec8f0a7b4a9390c663639fd},
+#>     note = {R package version 0.3.1, commit 6ac85a2afafc638a3778a34a39ef9f37909ff3ee},
 #>     url = {https://github.com/R4SUB/r4subprofile},
 #>   }
 #> ── r4subusability ──
@@ -158,7 +158,7 @@ r4sub_cite()
 #> 
 #>   Mali P (2026). _r4subusability: Usability Indicators for Clinical
 #>   Submission Readiness_. R package version 0.2.1, commit
-#>   7bf6c3e0bd9dc28e0361d3913f9b712d2e67f6f7,
+#>   ddffd3da4c0574a722abd3fde27e0878d1256b69,
 #>   <https://github.com/R4SUB/r4subusability>.
 #> 
 #> A BibTeX entry for LaTeX users is
@@ -167,7 +167,7 @@ r4sub_cite()
 #>     title = {r4subusability: Usability Indicators for Clinical Submission Readiness},
 #>     author = {Pawan Rama Mali},
 #>     year = {2026},
-#>     note = {R package version 0.2.1, commit 7bf6c3e0bd9dc28e0361d3913f9b712d2e67f6f7},
+#>     note = {R package version 0.2.1, commit ddffd3da4c0574a722abd3fde27e0878d1256b69},
 #>     url = {https://github.com/R4SUB/r4subusability},
 #>   }
 r4sub_cite("r4subcore")
@@ -177,7 +177,7 @@ r4sub_cite("r4subcore")
 #> 
 #>   Mali P (2026). _r4subcore: Evidence Schema, Parsers, and Shared
 #>   Primitives_. R package version 0.3.1.9000, commit
-#>   4c6e7b15bc7bf306a995498e7ad60b455006c703,
+#>   e4b93e14a7f3b2f4d91c641f421e2221ee20ed43,
 #>   <https://github.com/R4SUB/r4subcore>.
 #> 
 #> A BibTeX entry for LaTeX users is
@@ -186,7 +186,7 @@ r4sub_cite("r4subcore")
 #>     title = {r4subcore: Evidence Schema, Parsers, and Shared Primitives},
 #>     author = {Pawan Rama Mali},
 #>     year = {2026},
-#>     note = {R package version 0.3.1.9000, commit 4c6e7b15bc7bf306a995498e7ad60b455006c703},
+#>     note = {R package version 0.3.1.9000, commit e4b93e14a7f3b2f4d91c641f421e2221ee20ed43},
 #>     url = {https://github.com/R4SUB/r4subcore},
 #>   }
 ```
