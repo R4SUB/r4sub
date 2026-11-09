@@ -1,5 +1,13 @@
 # r4sub (development version)
 
+- `r4sub_conflicts()` now returns a classed `r4sub_conflicts` object with
+  `print()` and `format()` methods that render a readable
+  "`pkg::fn` overrides `other::fn`" report, in the style of the conflicted
+  package. The object is still a tibble with the same columns, so existing
+  code that inspects it keeps working. A one-line conflict summary can also be
+  shown at attach time by setting `options(r4sub.conflicts = TRUE)`; this is
+  off by default, so the default `library(r4sub)` startup output and attach
+  set are unchanged.
 - Add `r4sub_sitrep()`, a one-shot situation report composing your R version
   and platform, each ecosystem package's installed version and attach status,
   and the current conflict count. It is a pure composition of existing helpers

@@ -58,4 +58,12 @@ r4sub_attach_message <- function(pkgs) {
   if (length(attached) > 0L) {
     packageStartupMessage(r4sub_attach_message(attached))
   }
+
+  # Optional one-line conflict summary, off by default. Only shown when the
+  # user has explicitly set `options(r4sub.conflicts = TRUE)`; the default
+  # startup output and attach set are therefore unchanged.
+  conflict_line <- r4sub_conflicts_startup_line()
+  if (!is.null(conflict_line)) {
+    packageStartupMessage(conflict_line)
+  }
 }
