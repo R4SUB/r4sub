@@ -154,11 +154,16 @@
 </tbody>
 </table>
 <p><code><a href="reference/core_packages.html">core_packages()</a></code> returns the seven packages that are auto-attached.</p>
+<div class="section level3">
+<h3 id="optional-packages">Optional packages<a class="anchor" aria-label="anchor" href="#optional-packages"></a>
+</h3>
+<p>Beyond the seven core packages, the ecosystem includes optional packages that are installed separately and are never auto-attached: <code>r4subui</code> (above), <code>r4subpharma</code>, <code>r4subrepro</code>, and <code>r4agent</code>. These are tracked in an internal core/optional registry, so <code><a href="reference/r4sub_packages.html">r4sub_packages()</a></code> and <code><a href="reference/r4sub_status.html">r4sub_status()</a></code> list them with their installed version and status even though <code><a href="https://r4sub.github.io/r4sub/">library(r4sub)</a></code> does not load them. The default attach behavior is unchanged: <code><a href="https://r4sub.github.io/r4sub/">library(r4sub)</a></code> still attaches exactly the seven core packages.</p>
+</div>
 </div>
 <div class="section level2">
 <h2 id="ecosystem-utilities">Ecosystem utilities<a class="anchor" aria-label="anchor" href="#ecosystem-utilities"></a>
 </h2>
-<p>r4sub exports six helpers for working with the ecosystem as a whole:</p>
+<p>r4sub exports seven helpers for working with the ecosystem as a whole:</p>
 <table class="table">
 <colgroup>
 <col width="50%">
@@ -175,7 +180,7 @@
 </tr>
 <tr>
 <td><code><a href="reference/r4sub_packages.html">r4sub_packages()</a></code></td>
-<td>Show all packages with installed version and status</td>
+<td>Show all packages (core and optional) with installed version and status</td>
 </tr>
 <tr>
 <td><code><a href="reference/r4sub_status.html">r4sub_status()</a></code></td>
@@ -184,6 +189,10 @@
 <tr>
 <td><code><a href="reference/r4sub_conflicts.html">r4sub_conflicts()</a></code></td>
 <td>Report function-name conflicts with other packages</td>
+</tr>
+<tr>
+<td><code><a href="reference/r4sub_sitrep.html">r4sub_sitrep()</a></code></td>
+<td>One-shot situation report of your session</td>
 </tr>
 <tr>
 <td><code><a href="reference/r4sub_news.html">r4sub_news()</a></code></td>
@@ -197,21 +206,33 @@
 </table>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/r4sub_packages.html">r4sub_packages</a></span><span class="op">(</span><span class="op">)</span>   <span class="co"># versions and attachment status</span></span>
-<span><span class="fu"><a href="reference/r4sub_conflicts.html">r4sub_conflicts</a></span><span class="op">(</span><span class="op">)</span>  <span class="co"># detect name collisions after attaching</span></span></code></pre></div>
+<span><span class="fu"><a href="reference/r4sub_conflicts.html">r4sub_conflicts</a></span><span class="op">(</span><span class="op">)</span>  <span class="co"># detect name collisions after attaching</span></span>
+<span><span class="fu"><a href="reference/r4sub_sitrep.html">r4sub_sitrep</a></span><span class="op">(</span><span class="op">)</span>     <span class="co"># full session report in one call</span></span></code></pre></div>
+<div class="section level3">
+<h3 id="situation-report">Situation report<a class="anchor" aria-label="anchor" href="#situation-report"></a>
+</h3>
+<p><code><a href="reference/r4sub_sitrep.html">r4sub_sitrep()</a></code> prints a one-shot situation report for your current session: your R version and platform, the installed version and attach status of every ecosystem package (core and optional), and the current conflict count. It is a pure composition of the helpers above and performs no network access.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="reference/r4sub_sitrep.html">r4sub_sitrep</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+</div>
 </div>
 <div class="section level2">
 <h2 id="managing-conflicts">Managing conflicts<a class="anchor" aria-label="anchor" href="#managing-conflicts"></a>
 </h2>
 <p>When two packages export the same name, use <code>::</code> to be explicit:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">r4subcore</span><span class="fu">::</span><span class="fu"><a href="https://r4sub.github.io/r4subcore/reference/validate_evidence.html">validate_evidence</a></span><span class="op">(</span><span class="va">ev</span><span class="op">)</span></span>
 <span><span class="fu">r4subscore</span><span class="fu">::</span><span class="fu"><a href="https://r4sub.github.io/r4subscore/reference/compute_sci.html">compute_sci</a></span><span class="op">(</span><span class="va">pillar_scores</span><span class="op">)</span></span></code></pre></div>
-<p>Run <code><a href="reference/r4sub_conflicts.html">r4sub_conflicts()</a></code> after <code><a href="https://r4sub.github.io/r4sub/">library(r4sub)</a></code> to list any collisions.</p>
+<p>Run <code><a href="reference/r4sub_conflicts.html">r4sub_conflicts()</a></code> after <code><a href="https://r4sub.github.io/r4sub/">library(r4sub)</a></code> to list any collisions. It prints a formatted conflict report in the style of the <a href="https://conflicted.r-lib.org/" class="external-link">conflicted</a> package, with one <code>pkg::fn overrides other::fn</code> line per collision. The returned object is still a tibble (columns <code>func</code>, <code>r4sub_package</code>, <code>other_package</code>), so you can filter, count, or join it like any other data frame.</p>
+<p>To see a one-line conflict summary at attach time, opt in with <code>options(r4sub.conflicts = TRUE)</code> before loading. This is off by default, so the standard <code><a href="https://r4sub.github.io/r4sub/">library(r4sub)</a></code> startup output is unchanged.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>r4sub.conflicts <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r4sub.github.io/r4sub/">r4sub</a></span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="suppress-the-startup-message">Suppress the startup message<a class="anchor" aria-label="anchor" href="#suppress-the-startup-message"></a>
 </h2>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>r4sub.quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r4sub.github.io/r4sub/">r4sub</a></span><span class="op">)</span></span></code></pre></div>
 </div>

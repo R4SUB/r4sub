@@ -69,16 +69,32 @@ traceability, and build the dashboard.
 [`core_packages()`](https://r4sub.github.io/r4sub/reference/core_packages.md)
 returns the seven packages that are auto-attached.
 
+### Optional packages
+
+Beyond the seven core packages, the ecosystem includes optional packages
+that are installed separately and are never auto-attached: `r4subui`
+(above), `r4subpharma`, `r4subrepro`, and `r4agent`. These are tracked
+in an internal core/optional registry, so
+[`r4sub_packages()`](https://r4sub.github.io/r4sub/reference/r4sub_packages.md)
+and
+[`r4sub_status()`](https://r4sub.github.io/r4sub/reference/r4sub_status.md)
+list them with their installed version and status even though
+[`library(r4sub)`](https://r4sub.github.io/r4sub/) does not load them.
+The default attach behavior is unchanged:
+[`library(r4sub)`](https://r4sub.github.io/r4sub/) still attaches
+exactly the seven core packages.
+
 ## Ecosystem utilities
 
-r4sub exports six helpers for working with the ecosystem as a whole:
+r4sub exports seven helpers for working with the ecosystem as a whole:
 
 | Function | Purpose |
 |----|----|
 | [`core_packages()`](https://r4sub.github.io/r4sub/reference/core_packages.md) | List the auto-attached package names |
-| [`r4sub_packages()`](https://r4sub.github.io/r4sub/reference/r4sub_packages.md) | Show all packages with installed version and status |
+| [`r4sub_packages()`](https://r4sub.github.io/r4sub/reference/r4sub_packages.md) | Show all packages (core and optional) with installed version and status |
 | [`r4sub_status()`](https://r4sub.github.io/r4sub/reference/r4sub_status.md) | Check which ecosystem packages are installed |
 | [`r4sub_conflicts()`](https://r4sub.github.io/r4sub/reference/r4sub_conflicts.md) | Report function-name conflicts with other packages |
+| [`r4sub_sitrep()`](https://r4sub.github.io/r4sub/reference/r4sub_sitrep.md) | One-shot situation report of your session |
 | [`r4sub_news()`](https://r4sub.github.io/r4sub/reference/r4sub_news.md) | Show NEWS entries for each ecosystem package |
 | [`r4sub_cite()`](https://r4sub.github.io/r4sub/reference/r4sub_cite.md) | Print citation information for regulatory or academic use |
 
@@ -86,6 +102,21 @@ r4sub exports six helpers for working with the ecosystem as a whole:
 
 r4sub_packages()   # versions and attachment status
 r4sub_conflicts()  # detect name collisions after attaching
+r4sub_sitrep()     # full session report in one call
+```
+
+### Situation report
+
+[`r4sub_sitrep()`](https://r4sub.github.io/r4sub/reference/r4sub_sitrep.md)
+prints a one-shot situation report for your current session: your R
+version and platform, the installed version and attach status of every
+ecosystem package (core and optional), and the current conflict count.
+It is a pure composition of the helpers above and performs no network
+access.
+
+``` r
+
+r4sub_sitrep()
 ```
 
 ## Managing conflicts
@@ -101,7 +132,23 @@ r4subscore::compute_sci(pillar_scores)
 Run
 [`r4sub_conflicts()`](https://r4sub.github.io/r4sub/reference/r4sub_conflicts.md)
 after [`library(r4sub)`](https://r4sub.github.io/r4sub/) to list any
-collisions.
+collisions. It prints a formatted conflict report in the style of the
+[conflicted](https://conflicted.r-lib.org/) package, with one
+`pkg::fn overrides other::fn` line per collision. The returned object is
+still a tibble (columns `func`, `r4sub_package`, `other_package`), so
+you can filter, count, or join it like any other data frame.
+
+To see a one-line conflict summary at attach time, opt in with
+`options(r4sub.conflicts = TRUE)` before loading. This is off by
+default, so the standard
+[`library(r4sub)`](https://r4sub.github.io/r4sub/) startup output is
+unchanged.
+
+``` r
+
+options(r4sub.conflicts = TRUE)
+library(r4sub)
+```
 
 ## Suppress the startup message
 
