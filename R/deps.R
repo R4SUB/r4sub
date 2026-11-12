@@ -187,6 +187,7 @@ dependency_status <- function(type, op, required, installed) {
     "==" = cmp == 0,
     "<=" = cmp <= 0,
     "<"  = cmp < 0,
+    "!=" = cmp != 0,
     TRUE
   )
   if (isTRUE(satisfied)) "ok" else "outdated"
