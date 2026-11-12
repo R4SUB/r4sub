@@ -1,5 +1,13 @@
 # r4sub (development version)
 
+- Add `r4sub_deps()`, an ecosystem dependency-compatibility checker. It reads
+  each installed member package's declared dependencies and reports every edge
+  that points at another R4SUB package, flagging any dependency that is missing
+  or whose installed version is older than the member requires. The check is
+  purely local (it inspects installed `DESCRIPTION` metadata and performs no
+  network access). By default only hard dependencies (`Depends`/`Imports`) are
+  examined; pass `include_suggests = TRUE` to include optional edges. The result
+  is a classed tibble with a readable `print()`/`format()` report.
 - `r4sub_conflicts()` now returns a classed `r4sub_conflicts` object with
   `print()` and `format()` methods that render a readable
   "`pkg::fn` overrides `other::fn`" report, in the style of the conflicted
