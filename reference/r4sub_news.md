@@ -33,6 +33,17 @@ r4sub_news()
 #> 
 #>                      Changes in version 0.3.1.9000                      
 #> 
+#>   - Add lint_evidence(), a non-fatal counterpart to validate_evidence().
+#>     It checks an evidence table against the schema and a few structural
+#>     best practices and returns every issue at once as a tidy
+#>     code/level/field/ n/message frame, instead of aborting on the first
+#>     problem. The checks are purely structural and reuse the existing
+#>     schema and version machinery: missing required columns, wrong column
+#>     types, NA in non-nullable columns, values outside a controlled
+#>     vocabulary, and unknown/outdated/missing schema-version stamps, plus
+#>     notes for unparseable evidence_payload JSON, duplicate
+#>     (indicator_id, asset_id) keys, and metric_value/metric_unit gaps. It
+#>     invents no weights, thresholds, or scoring.
 #>   - Add evidence_delta() and evidence_diff_summary(), which extend
 #>     evidence_diff() reporting without changing its output.
 #>     evidence_delta() appends a signed per-row delta to a diff, scoring
@@ -460,6 +471,17 @@ r4sub_news("r4subcore")
 #> 
 #>                      Changes in version 0.3.1.9000                      
 #> 
+#>   - Add lint_evidence(), a non-fatal counterpart to validate_evidence().
+#>     It checks an evidence table against the schema and a few structural
+#>     best practices and returns every issue at once as a tidy
+#>     code/level/field/ n/message frame, instead of aborting on the first
+#>     problem. The checks are purely structural and reuse the existing
+#>     schema and version machinery: missing required columns, wrong column
+#>     types, NA in non-nullable columns, values outside a controlled
+#>     vocabulary, and unknown/outdated/missing schema-version stamps, plus
+#>     notes for unparseable evidence_payload JSON, duplicate
+#>     (indicator_id, asset_id) keys, and metric_value/metric_unit gaps. It
+#>     invents no weights, thresholds, or scoring.
 #>   - Add evidence_delta() and evidence_diff_summary(), which extend
 #>     evidence_diff() reporting without changing its output.
 #>     evidence_delta() appends a signed per-row delta to a diff, scoring

@@ -75,6 +75,17 @@ console.</p>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                      Changes in version 0.3.1.9000                      </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Add lint_evidence(), a non-fatal counterpart to validate_evidence().</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     It checks an evidence table against the schema and a few structural</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     best practices and returns every issue at once as a tidy</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     code/level/field/ n/message frame, instead of aborting on the first</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     problem. The checks are purely structural and reuse the existing</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     schema and version machinery: missing required columns, wrong column</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     types, NA in non-nullable columns, values outside a controlled</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     vocabulary, and unknown/outdated/missing schema-version stamps, plus</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     notes for unparseable evidence_payload JSON, duplicate</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     (indicator_id, asset_id) keys, and metric_value/metric_unit gaps. It</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     invents no weights, thresholds, or scoring.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   - Add evidence_delta() and evidence_diff_summary(), which extend</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     evidence_diff() reporting without changing its output.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     evidence_delta() appends a signed per-row delta to a diff, scoring</span>
@@ -502,6 +513,17 @@ console.</p>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                      Changes in version 0.3.1.9000                      </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Add lint_evidence(), a non-fatal counterpart to validate_evidence().</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     It checks an evidence table against the schema and a few structural</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     best practices and returns every issue at once as a tidy</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     code/level/field/ n/message frame, instead of aborting on the first</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     problem. The checks are purely structural and reuse the existing</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     schema and version machinery: missing required columns, wrong column</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     types, NA in non-nullable columns, values outside a controlled</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     vocabulary, and unknown/outdated/missing schema-version stamps, plus</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     notes for unparseable evidence_payload JSON, duplicate</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     (indicator_id, asset_id) keys, and metric_value/metric_unit gaps. It</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     invents no weights, thresholds, or scoring.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   - Add evidence_delta() and evidence_diff_summary(), which extend</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     evidence_diff() reporting without changing its output.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     evidence_delta() appends a signed per-row delta to a diff, scoring</span>

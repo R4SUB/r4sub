@@ -2,6 +2,19 @@
 
 ## r4sub (development version)
 
+- Add
+  [`r4sub_deps()`](https://r4sub.github.io/r4sub/reference/r4sub_deps.md),
+  an ecosystem dependency-compatibility checker. It reads each installed
+  member package’s declared dependencies and reports every edge that
+  points at another R4SUB package, flagging any dependency that is
+  missing or whose installed version is older than the member requires.
+  The check is purely local (it inspects installed `DESCRIPTION`
+  metadata and performs no network access). By default only hard
+  dependencies (`Depends`/`Imports`) are examined; pass
+  `include_suggests = TRUE` to include optional edges. The result is a
+  classed tibble with a readable
+  [`print()`](https://rdrr.io/r/base/print.html)/[`format()`](https://rdrr.io/r/base/format.html)
+  report.
 - [`r4sub_conflicts()`](https://r4sub.github.io/r4sub/reference/r4sub_conflicts.md)
   now returns a classed `r4sub_conflicts` object with
   [`print()`](https://rdrr.io/r/base/print.html) and

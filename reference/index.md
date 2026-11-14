@@ -10,6 +10,10 @@
   : Check R4SUB Package Installation Status
 - [`r4sub_sitrep()`](https://r4sub.github.io/r4sub/reference/r4sub_sitrep.md)
   : Situation Report for the R4SUB Ecosystem
+- [`r4sub_deps()`](https://r4sub.github.io/r4sub/reference/r4sub_deps.md)
+  [`format(`*`<r4sub_deps>`*`)`](https://r4sub.github.io/r4sub/reference/r4sub_deps.md)
+  [`print(`*`<r4sub_deps>`*`)`](https://r4sub.github.io/r4sub/reference/r4sub_deps.md)
+  : Check R4SUB Ecosystem Dependency Compatibility
 
 ## Information
 
