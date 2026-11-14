@@ -29,6 +29,7 @@ Imports:
     utils
 Suggests:
     knitr,
+    r4subrepro,
     r4subui,
     rmarkdown,
     testthat (>= 3.0.0)
