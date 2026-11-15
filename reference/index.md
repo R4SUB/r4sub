@@ -14,6 +14,10 @@
   [`format(`*`<r4sub_deps>`*`)`](https://r4sub.github.io/r4sub/reference/r4sub_deps.md)
   [`print(`*`<r4sub_deps>`*`)`](https://r4sub.github.io/r4sub/reference/r4sub_deps.md)
   : Check R4SUB Ecosystem Dependency Compatibility
+- [`r4sub_readiness()`](https://r4sub.github.io/r4sub/reference/r4sub_readiness.md)
+  [`format(`*`<r4sub_readiness>`*`)`](https://r4sub.github.io/r4sub/reference/r4sub_readiness.md)
+  [`print(`*`<r4sub_readiness>`*`)`](https://r4sub.github.io/r4sub/reference/r4sub_readiness.md)
+  : Run the R4SUB Readiness Pipeline End to End
 
 ## Information
 

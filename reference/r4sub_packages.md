@@ -37,6 +37,6 @@ r4sub_packages()
 #>  8 r4subusability 0.2.1      TRUE    
 #>  9 r4subui        0.2.1      FALSE   
 #> 10 r4subpharma    NA         FALSE   
-#> 11 r4subrepro     NA         FALSE   
+#> 11 r4subrepro     0.4.1      FALSE   
 #> 12 r4agent        NA         FALSE   
 ```

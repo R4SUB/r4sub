@@ -75,6 +75,21 @@ console.</p>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                      Changes in version 0.3.1.9000                      </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Extend bind_evidence() into a collision-aware assembler and add</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     evidence_collisions(), giving downstream packages one validated way</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     to combine evidence from several adapters or indicators.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     evidence_collisions() groups an evidence table by the (indicator_id,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     asset_id, location) key (the key is configurable) and returns every</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     key that appears on more than one row, with the row count, the</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     distinct result values, and a conflict flag that is TRUE when those</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     rows disagree. bind_evidence() now runs that check over the combined</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     table, attaches the report as its evidence_collisions attribute, and</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     takes on_duplicate to keep all rows (the default, so existing calls</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     are unchanged), keep the first or last row per key, or abort on any</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     collision; it also accepts a single list of frames. The logic is</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     purely structural grouping and counting -- it applies no weights,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     thresholds, or scoring and never decides which conflicting row is</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     correct.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   - Add lint_evidence(), a non-fatal counterpart to validate_evidence().</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     It checks an evidence table against the schema and a few structural</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     best practices and returns every issue at once as a tidy</span>
@@ -513,6 +528,21 @@ console.</p>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                      Changes in version 0.3.1.9000                      </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Extend bind_evidence() into a collision-aware assembler and add</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     evidence_collisions(), giving downstream packages one validated way</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     to combine evidence from several adapters or indicators.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     evidence_collisions() groups an evidence table by the (indicator_id,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     asset_id, location) key (the key is configurable) and returns every</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     key that appears on more than one row, with the row count, the</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     distinct result values, and a conflict flag that is TRUE when those</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     rows disagree. bind_evidence() now runs that check over the combined</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     table, attaches the report as its evidence_collisions attribute, and</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     takes on_duplicate to keep all rows (the default, so existing calls</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     are unchanged), keep the first or last row per key, or abort on any</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     collision; it also accepts a single list of frames. The logic is</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     purely structural grouping and counting -- it applies no weights,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     thresholds, or scoring and never decides which conflicting row is</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     correct.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   - Add lint_evidence(), a non-fatal counterpart to validate_evidence().</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     It checks an evidence table against the schema and a few structural</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     best practices and returns every issue at once as a tidy</span>

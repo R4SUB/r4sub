@@ -3,6 +3,25 @@
 ## r4sub (development version)
 
 - Add
+  [`r4sub_readiness()`](https://r4sub.github.io/r4sub/reference/r4sub_readiness.md),
+  a one-call orchestration runner for the whole ecosystem. Given a
+  shared evidence table (or a list of tables, combined with
+  [`r4subcore::bind_evidence()`](https://r4sub.github.io/r4subcore/reference/bind_evidence.html)),
+  it drives the installed sibling packages in dependency order – scoring
+  via `r4subscore`, risk via `r4subrisk`, traceability via `r4subtrace`,
+  usability via `r4subusability`, reproducibility via `r4subrepro`, and,
+  when a profile is supplied, profile conformance via `r4subprofile` –
+  and assembles every sibling’s native result into a single classed
+  object with a readable
+  [`print()`](https://rdrr.io/r/base/print.html)/[`format()`](https://rdrr.io/r/base/format.html)
+  report. It computes nothing itself: every number it surfaces (the
+  Submission Confidence Index and band, the overall risk score, and so
+  on) is produced by the sibling that owns that concern. Each stage is
+  guarded with
+  [`requireNamespace()`](https://rdrr.io/r/base/ns-load.html) and is
+  wrapped so that a missing package is recorded as `"skipped"` and a
+  sibling error as `"error"` without aborting the rest of the run.
+- Add
   [`r4sub_deps()`](https://r4sub.github.io/r4sub/reference/r4sub_deps.md),
   an ecosystem dependency-compatibility checker. It reads each installed
   member package’s declared dependencies and reports every edge that

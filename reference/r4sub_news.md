@@ -33,6 +33,21 @@ r4sub_news()
 #> 
 #>                      Changes in version 0.3.1.9000                      
 #> 
+#>   - Extend bind_evidence() into a collision-aware assembler and add
+#>     evidence_collisions(), giving downstream packages one validated way
+#>     to combine evidence from several adapters or indicators.
+#>     evidence_collisions() groups an evidence table by the (indicator_id,
+#>     asset_id, location) key (the key is configurable) and returns every
+#>     key that appears on more than one row, with the row count, the
+#>     distinct result values, and a conflict flag that is TRUE when those
+#>     rows disagree. bind_evidence() now runs that check over the combined
+#>     table, attaches the report as its evidence_collisions attribute, and
+#>     takes on_duplicate to keep all rows (the default, so existing calls
+#>     are unchanged), keep the first or last row per key, or abort on any
+#>     collision; it also accepts a single list of frames. The logic is
+#>     purely structural grouping and counting -- it applies no weights,
+#>     thresholds, or scoring and never decides which conflicting row is
+#>     correct.
 #>   - Add lint_evidence(), a non-fatal counterpart to validate_evidence().
 #>     It checks an evidence table against the schema and a few structural
 #>     best practices and returns every issue at once as a tidy
@@ -471,6 +486,21 @@ r4sub_news("r4subcore")
 #> 
 #>                      Changes in version 0.3.1.9000                      
 #> 
+#>   - Extend bind_evidence() into a collision-aware assembler and add
+#>     evidence_collisions(), giving downstream packages one validated way
+#>     to combine evidence from several adapters or indicators.
+#>     evidence_collisions() groups an evidence table by the (indicator_id,
+#>     asset_id, location) key (the key is configurable) and returns every
+#>     key that appears on more than one row, with the row count, the
+#>     distinct result values, and a conflict flag that is TRUE when those
+#>     rows disagree. bind_evidence() now runs that check over the combined
+#>     table, attaches the report as its evidence_collisions attribute, and
+#>     takes on_duplicate to keep all rows (the default, so existing calls
+#>     are unchanged), keep the first or last row per key, or abort on any
+#>     collision; it also accepts a single list of frames. The logic is
+#>     purely structural grouping and counting -- it applies no weights,
+#>     thresholds, or scoring and never decides which conflicting row is
+#>     correct.
 #>   - Add lint_evidence(), a non-fatal counterpart to validate_evidence().
 #>     It checks an evidence table against the schema and a few structural
 #>     best practices and returns every issue at once as a tidy

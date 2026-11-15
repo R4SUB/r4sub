@@ -48,7 +48,7 @@ r4sub_sitrep()
 #> → r4subusability (core): 0.2.1 [attached]
 #> → r4subui (optional): 0.2.1 [not attached]
 #> → r4subpharma (optional): not installed [not attached]
-#> → r4subrepro (optional): not installed [not attached]
+#> → r4subrepro (optional): 0.4.1 [not attached]
 #> → r4agent (optional): not installed [not attached]
 #> ✔ No conflicts detected.
 ```
