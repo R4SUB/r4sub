@@ -39,6 +39,7 @@ reference:
       - r4sub_status
       - r4sub_sitrep
       - r4sub_deps
+      - r4sub_readiness
   - title: "Information"
     contents:
       - r4sub_news
