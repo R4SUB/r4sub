@@ -10,4 +10,5 @@
 ^CONTRIBUTING\.md$
 ^CODE_OF_CONDUCT\.md$
 ^proposal$
+^paper$
 ^\.gitignore$
