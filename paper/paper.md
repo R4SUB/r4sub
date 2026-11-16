@@ -35,8 +35,9 @@ scriptable measure summarises how ready a package is overall.
 `R4SUB` ("Ready for Submission") is an ecosystem of twelve R packages that turns
 these checks into reproducible, scriptable R code and combines their results
 into a single, transparent **Submission Confidence Index (SCI)** — a 0–100
-composite computed across five pillars (data quality, traceability, risk,
-usability, and reproducibility). The index, its pillar structure, and its
+composite computed across four weighted pillars (data quality, traceability,
+risk, and usability), with reproducibility tooling provided separately by the
+ecosystem. The index, its pillar structure, and its
 weights are not hard-coded regulatory truth: they are supplied through
 configurable **authority profiles**, so the method is fully inspectable and can
 be adapted per regulator rather than asserting one fixed scoring. A single
